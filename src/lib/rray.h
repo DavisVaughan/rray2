@@ -6,6 +6,7 @@
 
 #include "export.h"
 #include "library.h"
+#include "sexp.h"
 
 
 #endif
