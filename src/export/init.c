@@ -1,4 +1,4 @@
-#include "rray.h"
+#include <rray.h>
 
 // Compile with `-fvisibility=hidden -DHAVE_VISIBILITY_ATTRIBUTE`
 // if you link to this library
