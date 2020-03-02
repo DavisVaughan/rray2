@@ -1,2 +1,5 @@
 ^rray2\.Rproj$
 ^\.Rproj\.user$
+^codecov\.yml$
+^\.github$
+^README\.Rmd$

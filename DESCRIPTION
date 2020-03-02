@@ -16,3 +16,5 @@ Roxygen: list(markdown = TRUE)
 URL: https://github.com/DavisVaughan/rray2
 BugReports: https://github.com/DavisVaughan/rray2/issues
 RoxygenNote: 7.0.2
+Suggests: 
+    covr
