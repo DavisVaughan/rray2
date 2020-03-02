@@ -11,4 +11,8 @@ static inline enum r_type r_typeof(sexp* x) {
   return TYPEOF(x);
 }
 
+static inline void r_mark_shared(sexp* x) {
+  MARK_NOT_MUTABLE(x);
+}
+
 #endif

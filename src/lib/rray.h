@@ -4,8 +4,10 @@
 
 #include "r.h"
 
+#include "attrs.h"
 #include "export.h"
 #include "library.h"
+#include "node.h"
 #include "sexp.h"
 
 
