@@ -6,6 +6,7 @@
 #include <stdbool.h>
 
 #define R_NO_REMAP
+#include <R.h>
 #include <Rinternals.h>
 #include <Rversion.h>
 #include <R_ext/Rdynload.h>
