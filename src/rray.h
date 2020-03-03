@@ -2,13 +2,8 @@
 #define RRAY_RRAY_H
 
 
-#include "r.h"
-
-#include "attrs.h"
-#include "export.h"
+#include "internal.h"
 #include "library.h"
-#include "node.h"
-#include "sexp.h"
 
 
 #endif

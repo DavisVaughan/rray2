@@ -1,7 +1,7 @@
 #ifndef RRAY_SEXP_H
 #define RRAY_SEXP_H
 
-#include "r.h"
+#include "zzz-internal-r.h"
 
 static inline r_ssize r_length(sexp* x) {
   return Rf_xlength(x);

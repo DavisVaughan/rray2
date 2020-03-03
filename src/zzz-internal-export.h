@@ -2,7 +2,7 @@
 #define RRAY_EXPORT_H
 
 
-#include "r.h"
+#include "zzz-internal-r.h"
 
 typedef DL_FUNC r_fn_ptr;
 typedef R_CallMethodDef r_callable;

@@ -1,7 +1,7 @@
 #ifndef RRAY_NODE_H
 #define RRAY_NODE_H
 
-#include "r.h"
+#include "zzz-internal-r.h"
 
 static inline sexp* r_node_car(sexp* x) {
   return CAR(x);
