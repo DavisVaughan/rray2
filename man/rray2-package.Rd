@@ -4,9 +4,11 @@
 \name{rray2-package}
 \alias{rray2}
 \alias{rray2-package}
-\title{rray2: What the Package Does (One Line, Title Case)}
+\title{rray2: Simple Arrays}
 \description{
-What the package does (one paragraph).
+Provides a toolkit for manipulating arrays in a consistent, 
+    powerful, and intuitive manner through the use of broadcasting and a new
+    array class, the 'rray'.
 }
 \seealso{
 Useful links:
@@ -17,7 +19,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Davis Vaughan \email{davis@rstudio.com}
+
+Other contributors:
+\itemize{
+  \item RStudio [copyright holder]
+}
 
 }
 \keyword{internal}

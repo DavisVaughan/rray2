@@ -1,13 +1,16 @@
 Package: rray2
-Title: What the Package Does (One Line, Title Case)
+Title: Simple Arrays
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    c(person(given = "Davis",
+             family = "Vaughan",
+             role = c("aut", "cre"),
+             email = "davis@rstudio.com"),
+      person(given = "RStudio",
+             role = "cph"))
+Description: Provides a toolkit for manipulating arrays in a consistent, 
+    powerful, and intuitive manner through the use of broadcasting and a new
+    array class, the 'rray'.
 License: MIT + file LICENSE
 URL: https://github.com/DavisVaughan/rray2
 BugReports: https://github.com/DavisVaughan/rray2/issues
