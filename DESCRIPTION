@@ -11,6 +11,8 @@ Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 URL: https://github.com/DavisVaughan/rray2
 BugReports: https://github.com/DavisVaughan/rray2/issues
+Depends:
+    R (>= 3.2)
 Imports: 
     rlang,
     vctrs (>= 0.2.99.9007)
