@@ -17,6 +17,9 @@ static inline sexp* r_length_to_scalar_int(r_ssize length) {
   return r_scalar_int(length);
 }
 
+#define r_mark_precious R_PreserveObject
+#define r_unmark_precious R_ReleaseObject
+
 static inline void r_mark_shared(sexp* x) {
   MARK_NOT_MUTABLE(x);
 }

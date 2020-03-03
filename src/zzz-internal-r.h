@@ -29,8 +29,5 @@ typedef Rcomplex r_complex_t;
 #define KEEP_WITH_INDEX(x, i) PROTECT_WITH_INDEX(x, &i)
 #define REKEEP REPROTECT
 
-#define r_mark_precious R_PreserveObject
-#define r_unmark_precious R_ReleaseObject
-
 
 #endif
