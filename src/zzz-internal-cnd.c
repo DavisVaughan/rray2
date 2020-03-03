@@ -1,8 +1,10 @@
-#include "zzz-internal-cnd.h"
-#include "zzz-internal-util.h"
 #include "zzz-internal-r.h"
+#include "zzz-internal-util.h"
+#include "zzz-internal-type.h"
 #include <stdio.h>
 #include <stdarg.h>
+
+#include "zzz-internal-cnd.h"
 
 
 #define BUFSIZE 8192
@@ -26,6 +28,16 @@ void r_abort(const char* fmt, ...) {
   never_reached("r_abort");
 }
 
+
+void r_stop_scalar_type(sexp* x, const char* arg) {
+  if (arg) {
+    r_abort("`%s` must be a vector, not %s.", arg, r_sexp_as_friendly_c_string(x));
+  } else {
+    r_abort("Input must be a vector, not %s.", r_sexp_as_friendly_c_string(x));
+  }
+
+  never_reached("stop_scalar_type");
+}
 
 
 #undef BUFSIZE

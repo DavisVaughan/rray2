@@ -15,7 +15,7 @@ r_ssize rray_dimensionality(sexp* x) {
   case r_type_list:
     break;
   default:
-    r_abort("`x` must be a vector type");
+    r_stop_scalar_type(x, "x");
   }
 
   sexp* dim = r_get_dim(x);

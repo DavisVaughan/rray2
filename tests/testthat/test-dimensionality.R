@@ -1,6 +1,7 @@
 test_that("fails on non-vector types", {
-  expect_error(rray_dimensionality(mean), "must be a vector type")
-  expect_error(rray_dimensionality(quote(x)), "must be a vector type")
+  expect_error(rray_dimensionality(mean), "must be a vector, not a function")
+  expect_error(rray_dimensionality(quote(x)), "must be a vector, not a symbol")
+  expect_error(rray_dimensionality(quote(x + y)), "must be a vector, not a call")
 })
 
 test_that("works with NULL", {
