@@ -9,19 +9,19 @@ Authors@R:
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-Roxygen: list(markdown = TRUE)
 URL: https://github.com/DavisVaughan/rray2
 BugReports: https://github.com/DavisVaughan/rray2/issues
-RoxygenNote: 7.0.2
-Suggests: 
-    covr,
-    testthat (>= 2.1.0)
 Imports: 
     rlang,
     vctrs (>= 0.2.99.9007)
+Suggests: 
+    covr,
+    testthat (>= 2.1.0)
 LinkingTo:
     vctrs (>= 0.2.99.9007)
 Remotes:
     r-lib/vctrs#874
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2
