@@ -20,4 +20,8 @@ Suggests:
     testthat (>= 2.1.0)
 Imports: 
     rlang,
-    vctrs (>= 0.2.3)
+    vctrs (>= 0.2.99.9007)
+LinkingTo:
+    vctrs (>= 0.2.99.9007)
+Remotes:
+    r-lib/vctrs#874

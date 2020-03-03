@@ -21,21 +21,12 @@ sexp* export_rray_dims2(sexp* x, sexp* y) {
 sexp* export_rray_dims_common(sexp* dims, sexp* absent, sexp* env) {
   sexp* xs = KEEP(rlang_env_dots_list(env));
 
-  if (dims != r_null) {
-    // TODO: `vec_cast(dims, rray_shared_empty_integer)`
-    if (r_typeof(dims) != r_type_integer) {
-      r_abort("`.dims` must be an integer vector.");
-    }
-  }
-
-  // TODO `vec_cast(absent, rray_shared_empty_integer)`
-  if (r_typeof(absent) != r_type_integer) {
-    r_abort("`.absent` must be an integer vector.");
-  }
+  dims = KEEP(vec_cast(dims, rray_shared_empty_int));
+  absent = KEEP(vec_cast(absent, rray_shared_empty_int));
 
   sexp* out = rray_dims_common(xs, dims, absent);
 
-  FREE(1);
+  FREE(3);
   return out;
 }
 

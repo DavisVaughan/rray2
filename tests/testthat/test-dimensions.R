@@ -113,6 +113,22 @@ test_that("implicit axes have a value of 1", {
   expect_identical(rray_dims_common(1, array(dim = c(1L, 2L, 2L))), c(1L, 2L, 2L))
 })
 
+test_that("`.dims` can be an integerish double", {
+  expect_identical(rray_dims_common(.dims = 1), 1L)
+})
+
+test_that("`.dims` is validated", {
+  expect_error(rray_dims_common(.dims = "x"), class = "vctrs_error_cast_lossy")
+})
+
+test_that("`.absent` can be an integerish double", {
+  expect_identical(rray_dims_common(.absent = 1), 1L)
+})
+
+test_that("`.absent` is validated", {
+  expect_error(rray_dims_common(.absent = "x"), class = "vctrs_error_cast_lossy")
+})
+
 test_that("errors with incompatible dimensions along an axis", {
   verify_output(test_path("output/test-dimensions-incompatible.txt"), {
     "# Cannot broadcast size 2 to 3"
