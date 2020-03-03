@@ -11,6 +11,7 @@
 #include "zzz-internal-type.h"
 #include "zzz-internal-util.h"
 #include "zzz-internal-vec-int.h"
+#include "zzz-internal-vec-list.h"
 #include "zzz-internal-vec.h"
 
 #endif
