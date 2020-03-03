@@ -26,3 +26,11 @@ r_ssize rray_dimensionality(sexp* x) {
 
   return r_length(dims);
 }
+
+r_ssize rray_dimensionality2(r_ssize x_dimensionality, r_ssize y_dimensionality) {
+  if (x_dimensionality > y_dimensionality) {
+    return x_dimensionality;
+  } else {
+    return y_dimensionality;
+  }
+}
