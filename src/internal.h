@@ -9,6 +9,7 @@
 #include "zzz-internal-r.h"
 #include "zzz-internal-sexp.h"
 #include "zzz-internal-sym.h"
+#include "zzz-internal-type.h"
 #include "zzz-internal-util.h"
 #include "zzz-internal-vec-int.h"
 
