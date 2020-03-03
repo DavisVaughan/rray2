@@ -1,0 +1,28 @@
+
+Cannot broadcast size 2 to 3
+============================
+
+> rray_dims_common(1:2, 2:3, 3:5)
+Error: Dimensions along axis 1 cannot be broadcast: 2, 3.
+
+
+Cannot broadcast size 0 to 2
+============================
+
+> rray_dims_common(integer(), 1:2)
+Error: Dimensions along axis 1 cannot be broadcast: 0, 2.
+
+
+Gives information about the axis
+================================
+
+> rray_dims_common(matrix(ncol = 2), matrix(ncol = 3))
+Error: Dimensions along axis 2 cannot be broadcast: 2, 3.
+
+
+`.dims` respects broadcasting rules
+===================================
+
+> rray_dims_common(1:2, .dims = 3L)
+Error: Dimensions along axis 1 cannot be broadcast: 3, 2.
+

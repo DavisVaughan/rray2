@@ -17,3 +17,11 @@
 rray_dims <- function(x) {
   .Call(export_rray_dims, x)
 }
+
+rray_dims2 <- function(x, y) {
+  .Call(export_rray_dims2, x, y)
+}
+
+rray_dims_common <- function(..., .dims = NULL, .absent = integer()) {
+  .Call(export_rray_dims_common, .dims, .absent, environment())
+}
