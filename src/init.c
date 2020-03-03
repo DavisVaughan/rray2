@@ -7,10 +7,15 @@
 
 // -----------------------------------------------------------------------------
 
+// dimensionality.c
+sexp* export_rray_dimensionality(sexp* x);
+
+// library.c
 extern sexp* export_rray_init_library();
 
 static const r_callable r_callables[] = {
-  {"export_rray_init_library", (r_fn_ptr) &export_rray_init_library, 0},
+  {"export_rray_dimensionality", (r_fn_ptr) &export_rray_dimensionality, 1},
+  {"export_rray_init_library",   (r_fn_ptr) &export_rray_init_library, 0},
   {NULL, NULL, 0}
 };
 

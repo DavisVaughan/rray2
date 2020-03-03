@@ -3,6 +3,8 @@
 
 
 #include "internal.h"
+
+#include "dimensionality.h"
 #include "library.h"
 
 
