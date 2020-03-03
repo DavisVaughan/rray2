@@ -6,5 +6,6 @@
 ## usethis namespace: start
 #' @useDynLib rray2, .registration = TRUE
 #' @import rlang
+#' @import vctrs
 ## usethis namespace: end
 NULL
