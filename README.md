@@ -7,6 +7,8 @@
 
 [![R build
 status](https://github.com/DavisVaughan/rray2/workflows/R-CMD-check/badge.svg)](https://github.com/DavisVaughan/rray2/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/DavisVaughan/rray2/branch/master/graph/badge.svg)](https://codecov.io/gh/DavisVaughan/rray2?branch=master)
 <!-- badges: end -->
 
 rray2
