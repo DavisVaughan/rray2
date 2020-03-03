@@ -3,6 +3,7 @@
 
 
 #include "zzz-internal-r.h"
+#include "zzz-internal-util.h"
 
 enum r_type {
   r_type_null        = 0,
@@ -72,6 +73,8 @@ static inline const char* r_type_as_friendly_c_string(enum r_type type) {
 
   case r_type_function:     return "a function";
   }
+
+  never_reached("r_type_as_friendly_c_string");
 }
 
 static inline const char* r_sexp_as_friendly_c_string(sexp* x) {
