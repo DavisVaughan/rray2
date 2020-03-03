@@ -53,7 +53,9 @@ test_that("works with arrays of all dimensionalities", {
 
 test_that("errors on long vectors, since R internally does not have support for long matrices", {
   # Only if ALTREP is available, to avoid running out of memory
+  # Always skip Windows, which seems to fail even with ALTREP
   skip_if(getRversion() < "3.6.0")
+  skip_on_os("windows")
 
   x <- 1:(.Machine$integer.max + 1)
   expect_error(rray_dims(x), "must have length less than")
