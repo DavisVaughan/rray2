@@ -1,8 +1,17 @@
-#ifndef RRAY_INTERNAL_EXPORT_H
-#define RRAY_INTERNAL_EXPORT_H
+#ifndef RRAY_EXPORT_H
+#define RRAY_EXPORT_H
 
 
-#include "zzz-internal-r.h"
+#define R_NO_REMAP
+#include <R.h>
+#include <Rinternals.h>
+#include <R_ext/Rdynload.h>
+
+// Compile with `-fvisibility=hidden -DHAVE_VISIBILITY_ATTRIBUTE`
+// if you link to this library
+#include <R_ext/Visibility.h>
+#define export attribute_visible extern
+
 
 typedef DL_FUNC r_fn_ptr;
 typedef R_CallMethodDef r_callable;

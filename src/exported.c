@@ -1,4 +1,6 @@
 #include "rray.h"
+#include "library.h"
+#include "exported.h"
 
 // dimensionality.c
 

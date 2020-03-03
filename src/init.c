@@ -1,20 +1,7 @@
-#include "rray.h"
-
-// Compile with `-fvisibility=hidden -DHAVE_VISIBILITY_ATTRIBUTE`
-// if you link to this library
-#include <R_ext/Visibility.h>
-#define export attribute_visible extern
+#include "export.h"
+#include "exported.h"
 
 // -----------------------------------------------------------------------------
-
-// dimensionality.c
-extern sexp* export_rray_dimensionality(sexp* x);
-
-// dimensions.c
-extern sexp* export_rray_dims(sexp* x);
-
-// library.c
-extern sexp* export_rray_init_library();
 
 static const r_callable r_callables[] = {
   {"export_rray_dimensionality", (r_fn_ptr) &export_rray_dimensionality, 1},
