@@ -23,9 +23,24 @@ static inline sexp* r_length_to_scalar_int(r_ssize length) {
 static inline void r_mark_shared(sexp* x) {
   MARK_NOT_MUTABLE(x);
 }
+static inline bool r_is_shared(sexp* x) {
+  return MAYBE_SHARED(x);
+}
 
 static inline bool r_is_object(sexp* x) {
   return OBJECT(x);
+}
+
+static inline sexp* r_shallow_duplicate(sexp* x) {
+  return Rf_shallow_duplicate(x);
+}
+
+static inline sexp* r_maybe_duplicate(sexp* x) {
+  if (r_is_shared(x)) {
+    return r_shallow_duplicate(x);
+  } else {
+    return x;
+  }
 }
 
 #endif
