@@ -2,7 +2,7 @@
 
 sexp* rray_dims(sexp* x) {
   if (x == r_null) {
-    return r_scalar_int(0);
+    return rray_shared_zero_int;
   }
 
   switch (r_typeof(x)) {
