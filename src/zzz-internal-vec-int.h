@@ -3,9 +3,17 @@
 
 
 #include "zzz-internal-r.h"
+#include "zzz-internal-type.h"
+#include "zzz-internal-vec.h"
+
 
 static inline sexp* r_scalar_int(int x) {
   return Rf_ScalarInteger(x);
+}
+
+
+static inline sexp* r_new_int(r_ssize length) {
+  return r_new_vec(r_type_integer, length);
 }
 
 
