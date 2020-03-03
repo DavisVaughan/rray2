@@ -2,9 +2,8 @@
 #define RRAY_RRAY_H
 
 
-#include "internal.h"
-
 #include "dimensionality.h"
+#include "internal.h"
 #include "library.h"
 
 
