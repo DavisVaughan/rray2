@@ -1,5 +1,5 @@
-#ifndef RRAY_EXPORT_H
-#define RRAY_EXPORT_H
+#ifndef RRAY_INTERNAL_EXPORT_H
+#define RRAY_INTERNAL_EXPORT_H
 
 
 #include "zzz-internal-r.h"

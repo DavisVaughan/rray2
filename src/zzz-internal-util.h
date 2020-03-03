@@ -1,5 +1,5 @@
-#ifndef RRAY_UTIL_H
-#define RRAY_UTIL_H
+#ifndef RRAY_INTERNAL_UTIL_H
+#define RRAY_INTERNAL_UTIL_H
 
 
 #include "zzz-internal-r.h"

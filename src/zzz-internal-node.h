@@ -1,5 +1,5 @@
-#ifndef RRAY_NODE_H
-#define RRAY_NODE_H
+#ifndef RRAY_INTERNAL_NODE_H
+#define RRAY_INTERNAL_NODE_H
 
 #include "zzz-internal-r.h"
 

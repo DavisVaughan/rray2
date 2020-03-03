@@ -1,5 +1,5 @@
-#ifndef RRAY_R_H
-#define RRAY_R_H
+#ifndef RRAY_INTERNAL_R_H
+#define RRAY_INTERNAL_R_H
 
 
 #include <inttypes.h>

@@ -1,5 +1,5 @@
-#ifndef RRAY_SEXP_H
-#define RRAY_SEXP_H
+#ifndef RRAY_INTERNAL_SEXP_H
+#define RRAY_INTERNAL_SEXP_H
 
 #include "zzz-internal-r.h"
 
