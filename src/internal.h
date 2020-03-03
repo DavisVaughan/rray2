@@ -4,6 +4,7 @@
 
 #include "zzz-internal-attrs.h"
 #include "zzz-internal-cnd.h"
+#include "zzz-internal-functional.h"
 #include "zzz-internal-node.h"
 #include "zzz-internal-r.h"
 #include "zzz-internal-rlang.h"
