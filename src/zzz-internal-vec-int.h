@@ -17,4 +17,8 @@ static inline sexp* r_new_int(r_ssize length) {
 }
 
 
+extern sexp* rray_shared_empty_int;
+extern sexp* rray_shared_zero_int;
+
+
 #endif
