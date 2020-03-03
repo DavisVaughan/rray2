@@ -8,6 +8,7 @@
 #include "zzz-internal-export.h"
 #include "zzz-internal-node.h"
 #include "zzz-internal-sexp.h"
+#include "zzz-internal-sym.h"
 
 
 #endif
