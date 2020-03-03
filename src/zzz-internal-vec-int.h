@@ -1,5 +1,5 @@
-#ifndef RRAY_VEC_H
-#define RRAY_VEC_H
+#ifndef RRAY_VEC_INT_H
+#define RRAY_VEC_INT_H
 
 
 #include "zzz-internal-r.h"
