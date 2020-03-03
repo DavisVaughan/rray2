@@ -2,7 +2,7 @@
 
 r_ssize rray_dimensionality(sexp* x) {
   if (x == r_null) {
-    return 1;
+    return 0;
   }
 
   switch (r_typeof(x)) {

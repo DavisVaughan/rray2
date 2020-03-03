@@ -4,8 +4,10 @@ test_that("fails on non-vector types", {
   expect_error(rray_dimensionality(quote(x + y)), "must be a vector, not a call")
 })
 
-test_that("works with NULL", {
-  expect_identical(rray_dimensionality(NULL), 1L)
+test_that("the dimensionality of NULL is `0`, to match the dimensions of NULL being `integer()`", {
+  # This invariant should always hold
+  # length(rray_dims(x)) == rray_dimensionality(x)
+  expect_identical(rray_dimensionality(NULL), 0L)
 })
 
 test_that("works with bare vectors", {

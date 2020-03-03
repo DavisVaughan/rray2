@@ -13,7 +13,15 @@ rray_dimensionality(x)
 \code{rray_dimensionality()} computes the dimensionality of an object. This is
 also known as the "number of dimensions".
 }
+\section{Invariants}{
+
+\itemize{
+\item \code{vec_size(rray_dims(x)) == rray_dimensionality(x)}
+}
+}
+
 \examples{
 rray_dimensionality(1)
 rray_dimensionality(matrix())
+rray_dimensionality(NULL)
 }
