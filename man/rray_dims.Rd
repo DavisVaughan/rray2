@@ -2,22 +2,52 @@
 % Please edit documentation in R/dimensions.R
 \name{rray_dims}
 \alias{rray_dims}
-\title{Compute dimensions}
+\alias{rray_dims_common}
+\title{Dimensions}
 \usage{
 rray_dims(x)
+
+rray_dims_common(..., .dims = NULL, .absent = integer())
 }
 \arguments{
 \item{x}{A vector}
+
+\item{...}{Vectors to find common dimensions for}
+
+\item{.dims}{If \code{NULL}, the common dimensions are computed solely from
+\code{...}. Otherwise, an integer vector of dimensions to start the common
+dimension computation from.}
+
+\item{.absent}{The dimensions to return when \code{...} is empty, or when all
+inputs are \code{NULL}.}
 }
 \description{
-\code{rray_dims()} computes the dimensions of a vector.
-
-This is similar to \code{\link[=dim]{dim()}}, but errors on scalar objects and never
-returns \code{NULL}. The dimensions of a bare vector like \code{1:5} are its length.
+\itemize{
+\item \code{rray_dims()} computes the dimensions of a vector.
+\item \code{rray_dims_common()} computes the common dimensions of multiple vectors,
+using the rules of broadcasting.
+}
+}
+\details{
+\code{rray_dims()} is similar to \code{\link[=dim]{dim()}}, but errors on scalar objects and never
+returns \code{NULL}. The dimensions of a bare vector, such as \code{1:5}, are its
+length, and the dimensions of \code{NULL} are \code{integer()}.
 }
 \examples{
 rray_dims(1)
 rray_dims(array(1:6, dim = c(2, 3)))
+
+rray_dims(NULL)
+
+rray_dims_common(1, 1:2)
+rray_dims_common(
+  matrix(1:5, ncol = 5),
+  matrix(1:5, nrow = 5)
+)
+
+# `.dims` starts the computation, but can still be broadcast
+# against the dimensions of the input
+rray_dims_common(matrix(1:5), .dims = c(1L, 5L))
 
 try(rray_dims(mean))
 }

@@ -2,5 +2,6 @@
 
 export(rray_dimensionality)
 export(rray_dims)
+export(rray_dims_common)
 import(rlang)
 useDynLib(rray2, .registration = TRUE)
