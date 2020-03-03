@@ -10,7 +10,7 @@ static inline sexp* r_get_attributes(sexp* x) {
   return ATTRIB(x);
 }
 
-static inline sexp* r_get_dim(sexp* x) {
+static inline sexp* r_get_dims(sexp* x) {
   return r_get_attribute(x, r_sym_dim);
 }
 static inline sexp* r_get_dimnames(sexp* x) {

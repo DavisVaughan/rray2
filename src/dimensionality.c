@@ -18,11 +18,11 @@ r_ssize rray_dimensionality(sexp* x) {
     r_stop_scalar_type(x, "x");
   }
 
-  sexp* dim = r_get_dim(x);
+  sexp* dims = r_get_dims(x);
 
-  if (dim == r_null) {
+  if (dims == r_null) {
     return 1;
   }
 
-  return r_length(dim);
+  return r_length(dims);
 }
