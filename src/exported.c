@@ -2,6 +2,21 @@
 #include "library.h"
 #include "exported.h"
 
+// broadcast.c
+
+sexp* export_rray_broadcast(sexp* x, sexp* dims) {
+  dims = KEEP(vec_cast(dims, rray_shared_empty_int));
+
+  if (r_int_any_na_or_negative(dims)) {
+    r_abort("`dims` must not contain `NA` values and cannot be negative.");
+  }
+
+  sexp* out = rray_broadcast(x, dims);
+
+  FREE(1);
+  return out;
+}
+
 // dimensionality.c
 
 sexp* export_rray_dimensionality(sexp* x) {
@@ -86,8 +101,8 @@ sexp* export_rray_strides(sexp* x) {
 sexp* export_rray_strides_from_dims(sexp* dims) {
   dims = KEEP(vec_cast(dims, rray_shared_empty_int));
 
-  if (r_int_any_na(dims)) {
-    r_abort("`dims` must not contain `NA`.");
+  if (r_int_any_na_or_negative(dims)) {
+    r_abort("`dims` must not contain `NA` values and cannot be negative.");
   }
 
   sexp* out = rray_strides_from_dims(dims);

@@ -4,6 +4,9 @@
 
 #include "internal.h"
 
+// broadcast.c
+sexp* export_rray_broadcast(sexp* x, sexp* dims);
+
 // dimensionality.c
 sexp* export_rray_dimensionality(sexp* x);
 

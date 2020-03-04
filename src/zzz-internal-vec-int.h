@@ -35,13 +35,13 @@ static inline int r_int_get(sexp* x, r_ssize i) {
   return r_int_deref(x)[i];
 }
 
-static inline bool r_int_any_na(sexp* x) {
+static inline bool r_int_any_na_or_negative(sexp* x) {
   r_ssize size = r_length(x);
 
   int* p_x = r_int_deref(x);
 
   for (r_ssize i = 0; i < size; ++i) {
-    if (p_x[i] == r_na_int) {
+    if (p_x[i] < 0) {
       return true;
     }
   }

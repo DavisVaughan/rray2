@@ -4,6 +4,7 @@
 
 #include "internal.h"
 
+#include "broadcast.h"
 #include "dimensionality.h"
 #include "dimensions.h"
 #include "elements.h"
