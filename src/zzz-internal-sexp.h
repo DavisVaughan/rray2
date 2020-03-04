@@ -4,6 +4,7 @@
 #include "zzz-internal-r.h"
 #include "zzz-internal-cnd.h"
 #include "zzz-internal-vec-int.h"
+#include "zzz-internal-vec-dbl.h"
 
 static inline r_ssize r_length(sexp* x) {
   return Rf_xlength(x);
@@ -16,6 +17,11 @@ static inline sexp* r_length_as_scalar_int(r_ssize length) {
 
   return r_scalar_int(length);
 }
+
+static inline sexp* r_length_as_scalar_dbl(r_ssize length) {
+  return r_scalar_dbl((double) length);
+}
+
 
 #define r_mark_precious R_PreserveObject
 #define r_unmark_precious R_ReleaseObject
