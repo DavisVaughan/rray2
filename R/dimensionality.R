@@ -5,7 +5,11 @@
 #'
 #' @section Invariants:
 #'
-#' - `vec_size(rray_dims(x)) == rray_dimensionality(x)`
+#' - `vec_size(rray_dimensionality(x)) == 1L`
+#'
+#' - `vec_ptype(rray_dimensionality(x)) == integer()`
+#'
+#' - `rray_dimensionality(x) == vec_size(rray_dims(x))`
 #'
 #' @param x A vector
 #'

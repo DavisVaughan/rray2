@@ -16,7 +16,9 @@ also known as the "number of dimensions".
 \section{Invariants}{
 
 \itemize{
-\item \code{vec_size(rray_dims(x)) == rray_dimensionality(x)}
+\item \code{vec_size(rray_dimensionality(x)) == 1L}
+\item \code{vec_ptype(rray_dimensionality(x)) == integer()}
+\item \code{rray_dimensionality(x) == vec_size(rray_dims(x))}
 }
 }
 
