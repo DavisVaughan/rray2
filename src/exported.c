@@ -24,6 +24,14 @@ sexp* export_rray_dims_common(sexp* dims, sexp* absent, sexp* env) {
   dims = KEEP(vec_cast(dims, rray_shared_empty_int));
   absent = KEEP(vec_cast(absent, rray_shared_empty_int));
 
+  if (dims != r_null && r_length(dims) == 0) {
+    r_abort("`.dims` must not be length 0.");
+  }
+
+  if (r_length(absent) == 0) {
+    r_abort("`.absent` must not be length 0.");
+  }
+
   sexp* out = rray_dims_common(xs, dims, absent);
 
   FREE(3);

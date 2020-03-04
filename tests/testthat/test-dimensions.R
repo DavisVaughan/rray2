@@ -64,8 +64,8 @@ test_that("errors on long vectors, since R internally does not have support for 
 # ------------------------------------------------------------------------------
 # rray_dims2()
 
-test_that("all NULL values returns integer(), like the default of rray_dims_common()", {
-  expect_identical(rray_dims2(NULL, NULL), integer())
+test_that("all NULL values returns 0, like the default of rray_dims_common()", {
+  expect_identical(rray_dims2(NULL, NULL), 0L)
   expect_identical(rray_dims2(NULL, NULL), rray_dims_common(NULL, NULL))
 })
 
@@ -77,10 +77,10 @@ test_that("NULL values are ignored", {
 })
 
 test_that("All NULL values returns `.absent`", {
-  expect_identical(rray_dims_common(), integer())
+  expect_identical(rray_dims_common(), 0L)
   expect_identical(rray_dims_common(.absent = 5L), 5L)
-  expect_identical(rray_dims_common(NULL), integer())
-  expect_identical(rray_dims_common(NULL, NULL), integer())
+  expect_identical(rray_dims_common(NULL), 0L)
+  expect_identical(rray_dims_common(NULL, NULL), 0L)
 })
 
 test_that("Providing `.dims` overrides NULL + `.absent` behavior", {
@@ -90,10 +90,6 @@ test_that("Providing `.dims` overrides NULL + `.absent` behavior", {
 
 test_that("`.dims` can be broadcast", {
   expect_identical(rray_dims_common(matrix(1:5), .dims = 1L), c(5L, 1L))
-})
-
-test_that("integer() `.dims` is always broadcast", {
-  expect_identical(rray_dims_common(1, .dims = integer()), 1L)
 })
 
 test_that("exactly matching dimensions works", {
@@ -123,6 +119,7 @@ test_that("`.dims` can be an integerish double", {
 })
 
 test_that("`.dims` is validated", {
+  expect_error(rray_dims_common(.dims = integer()), "must not be length 0")
   expect_error(rray_dims_common(.dims = "x"), class = "vctrs_error_cast_lossy")
 })
 
@@ -131,6 +128,7 @@ test_that("`.absent` can be an integerish double", {
 })
 
 test_that("`.absent` is validated", {
+  expect_error(rray_dims_common(.absent = integer()), "must not be length 0")
   expect_error(rray_dims_common(.absent = "x"), class = "vctrs_error_cast_lossy")
 })
 
