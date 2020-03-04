@@ -61,6 +61,17 @@ void stepper_sync(struct rray_stepper* p_stepper);
 
 // -----------------------------------------------------------------------------
 
+/*
+ * Macros to help with broadcasting functions
+ *
+ * The intent is to mask most of the stepping implementation details, and
+ * let the user write a loop where they get to deal directly with `out`, `x`
+ * and `y` objects that they have defined. Rather than indexing `p_x` and `p_y`
+ * with `i`, the user will create `x_loc` and `y_loc` and pass them to
+ * `STEPPER_SYNC()`, which will update them with the correct indexing value
+ * at each iteration.
+ */
+
 #define STEPPER_INIT(X_DIMS, Y_DIMS, OUT_DIMENSIONALITY, N_PROTECT)       \
   struct rray_stepper x_stepper = new_stepper(X_DIMS);                    \
   struct rray_stepper* p_x_stepper = &x_stepper;                          \
