@@ -7,6 +7,7 @@
 #include "dimensionality.h"
 #include "dimensions.h"
 #include "elements.h"
+#include "strides.h"
 
 
 #endif

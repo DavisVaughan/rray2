@@ -20,4 +20,8 @@ sexp* export_rray_elements_from_dims(sexp* dims);
 // library.c
 sexp* export_rray_init_library();
 
+// strides.c
+sexp* export_rray_strides(sexp* x);
+sexp* export_rray_strides_from_dims(sexp* dims);
+
 #endif

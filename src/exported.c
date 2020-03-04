@@ -76,3 +76,22 @@ sexp* export_rray_init_library() {
   rray_init_library();
   return r_null;
 }
+
+// strides.c
+
+sexp* export_rray_strides(sexp* x) {
+  return rray_strides(x);
+}
+
+sexp* export_rray_strides_from_dims(sexp* dims) {
+  dims = KEEP(vec_cast(dims, rray_shared_empty_int));
+
+  if (r_int_any_na(dims)) {
+    r_abort("`dims` must not contain `NA`.");
+  }
+
+  sexp* out = rray_strides_from_dims(dims);
+
+  FREE(1);
+  return out;
+}

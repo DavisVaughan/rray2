@@ -12,6 +12,8 @@ static const r_callable r_callables[] = {
   {"export_rray_elements",                 (r_fn_ptr) &export_rray_elements, 1},
   {"export_rray_elements_from_dims",       (r_fn_ptr) &export_rray_elements_from_dims, 1},
   {"export_rray_init_library",             (r_fn_ptr) &export_rray_init_library, 0},
+  {"export_rray_strides",                  (r_fn_ptr) &export_rray_strides, 1},
+  {"export_rray_strides_from_dims",        (r_fn_ptr) &export_rray_strides_from_dims, 1},
   {NULL, NULL, 0}
 };
 
