@@ -18,4 +18,13 @@ static inline sexp* r_get_dimnames(sexp* x) {
 }
 
 
+static inline void r_poke_attribute(sexp* x, sexp* tag, sexp* value) {
+  Rf_setAttrib(x, tag, value);
+}
+
+static inline void r_poke_dims(sexp* x, sexp* dims) {
+  r_poke_attribute(x, r_sym_dim, dims);
+}
+
+
 #endif
