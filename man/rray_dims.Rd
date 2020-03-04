@@ -41,6 +41,16 @@ using the rules of broadcasting.
 returns \code{NULL}. The dimensions of a bare vector, such as \code{1:5}, are its
 length, and the dimensions of \code{NULL} are \code{0}.
 }
+\section{Invariants}{
+
+\itemize{
+\item \code{vec_size(rray_dims(x)) == rray_dimensionality(x)}
+\item \code{vec_ptype(rray_dims(x)) == integer()}
+\item \code{vec_size(rray_dims_common(...)) == max(map(list(...), rray_dimensionality))}
+\item \code{vec_ptype(rray_dims_common(...)) == integer()}
+}
+}
+
 \examples{
 rray_dims(1)
 rray_dims(array(1:6, dim = c(2, 3)))

@@ -11,6 +11,16 @@
 #' returns `NULL`. The dimensions of a bare vector, such as `1:5`, are its
 #' length, and the dimensions of `NULL` are `0`.
 #'
+#' @section Invariants:
+#'
+#' - `vec_size(rray_dims(x)) == rray_dimensionality(x)`
+#'
+#' - `vec_ptype(rray_dims(x)) == integer()`
+#'
+#' - `vec_size(rray_dims_common(...)) == max(map(list(...), rray_dimensionality))`
+#'
+#' - `vec_ptype(rray_dims_common(...)) == integer()`
+#'
 #' @param x A vector
 #' @param ... Vectors to find common dimensions for
 #' @param .dims If `NULL`, the common dimensions are computed solely from
