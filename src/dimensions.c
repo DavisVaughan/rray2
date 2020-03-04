@@ -23,7 +23,7 @@ sexp* rray_dims_impl(sexp* x) {
 
   if (dims == r_null) {
     r_ssize length = r_length(x);
-    return r_length_to_scalar_int(length);
+    return r_length_as_scalar_int(length);
   }
 
   return dims;

@@ -9,7 +9,7 @@ static inline r_ssize r_length(sexp* x) {
   return Rf_xlength(x);
 }
 
-static inline sexp* r_length_to_scalar_int(r_ssize length) {
+static inline sexp* r_length_as_scalar_int(r_ssize length) {
   if (length > R_SHORT_SSIZE_MAX) {
     r_abort("Object must have length less than %i, not %td.", R_SHORT_SSIZE_MAX, length);
   }
