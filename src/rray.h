@@ -6,6 +6,7 @@
 
 #include "dimensionality.h"
 #include "dimensions.h"
+#include "elements.h"
 
 
 #endif

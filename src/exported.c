@@ -30,6 +30,22 @@ sexp* export_rray_dims_common(sexp* dims, sexp* absent, sexp* env) {
   return out;
 }
 
+// elements.c
+
+sexp* export_rray_elements(sexp* x) {
+  return r_length_as_scalar_dbl(rray_elements(x));
+}
+
+sexp* export_rray_elements_from_dims(sexp* dims) {
+  dims = KEEP(vec_cast(dims, rray_shared_empty_int));
+
+  r_ssize elements = rray_elements_from_dims(dims);
+  sexp* out = r_length_as_scalar_dbl(elements);
+
+  FREE(1);
+  return out;
+}
+
 // library.c
 
 sexp* export_rray_init_library() {

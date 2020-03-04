@@ -6,6 +6,7 @@
 #include "zzz-internal-type.h"
 #include "zzz-internal-vec.h"
 
+#define r_na_int NA_INTEGER
 
 static inline sexp* r_scalar_int(int x) {
   return Rf_ScalarInteger(x);
