@@ -5,6 +5,12 @@
 #' It generally computes the same thing as `length()`, but has a more
 #' predictable name and errors on scalar objects.
 #'
+#' @section Invariants:
+#'
+#' - `vec_size(rray_elements(x)) == 1L`
+#'
+#' - `rray_elements(x) == prod(rray_dims(x))`
+#'
 #' @param x A vector
 #'
 #' @return A single double. The number of elements in `x`.

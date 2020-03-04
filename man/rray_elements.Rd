@@ -19,6 +19,14 @@ A single double. The number of elements in \code{x}.
 It generally computes the same thing as \code{length()}, but has a more
 predictable name and errors on scalar objects.
 }
+\section{Invariants}{
+
+\itemize{
+\item \code{vec_size(rray_elements(x)) == 1L}
+\item \code{rray_elements(x) == prod(rray_dims(x))}
+}
+}
+
 \examples{
 rray_elements(1:5)
 
