@@ -9,7 +9,7 @@
 #' @details
 #' `rray_dims()` is similar to [dim()], but errors on scalar objects and never
 #' returns `NULL`. The dimensions of a bare vector, such as `1:5`, are its
-#' length, and the dimensions of `NULL` are `integer()`.
+#' length, and the dimensions of `NULL` are `0`.
 #'
 #' @param x A vector
 #' @param ... Vectors to find common dimensions for
@@ -43,7 +43,7 @@ rray_dims <- function(x) {
 
 #' @rdname rray_dims
 #' @export
-rray_dims_common <- function(..., .dims = NULL, .absent = integer()) {
+rray_dims_common <- function(..., .dims = NULL, .absent = 0L) {
   .Call(export_rray_dims_common, .dims, .absent, environment())
 }
 

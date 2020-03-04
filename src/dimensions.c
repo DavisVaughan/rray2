@@ -30,9 +30,9 @@ sexp* rray_dims_impl(sexp* x) {
 }
 
 sexp* rray_dims(sexp* x) {
-  // For type stability, return an empty integer for `NULL` values
+  // For invariants to hold, `NULL` returns dimensions of `0`
   if (x == r_null) {
-    return rray_shared_empty_int;
+    return rray_shared_zero_int;
   }
 
   return rray_dims_impl(x);

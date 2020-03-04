@@ -7,8 +7,8 @@ test_that("fails on non-vector types", {
   expect_error(rray_dims(quote(x + y)), "must be a vector, not a call")
 })
 
-test_that("The dimensions of NULL are integer()", {
-  expect_identical(rray_dims(NULL), integer())
+test_that("The dimensions of NULL are 0L", {
+  expect_identical(rray_dims(NULL), 0L)
 })
 
 test_that("works with bare vectors", {

@@ -7,7 +7,7 @@
 \usage{
 rray_dims(x)
 
-rray_dims_common(..., .dims = NULL, .absent = integer())
+rray_dims_common(..., .dims = NULL, .absent = 0L)
 }
 \arguments{
 \item{x}{A vector}
@@ -31,7 +31,7 @@ using the rules of broadcasting.
 \details{
 \code{rray_dims()} is similar to \code{\link[=dim]{dim()}}, but errors on scalar objects and never
 returns \code{NULL}. The dimensions of a bare vector, such as \code{1:5}, are its
-length, and the dimensions of \code{NULL} are \code{integer()}.
+length, and the dimensions of \code{NULL} are \code{0}.
 }
 \examples{
 rray_dims(1)
