@@ -19,13 +19,9 @@ r_ssize rray_elements(sexp* x) {
 }
 
 r_ssize rray_elements_from_dims(sexp* dims) {
-  r_ssize dimensionality = r_length(dims);
-
-  if (dimensionality == 0) {
-    return 0;
-  }
-
   r_ssize out = 1;
+
+  r_ssize dimensionality = r_length(dims);
   int* p_dims = r_int_deref(dims);
 
   // TODO: Maybe check for ptrdiff_t overflow? Would be very hard to actually
