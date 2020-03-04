@@ -50,3 +50,7 @@ rray_dims_common <- function(..., .dims = NULL, .absent = 0L) {
 rray_dims2 <- function(x, y) {
   .Call(export_rray_dims2, x, y)
 }
+
+rray_dims_expand <- function(dims, dimensionality) {
+  .Call(export_rray_dims_expand, dims, dimensionality)
+}

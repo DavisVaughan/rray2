@@ -147,3 +147,22 @@ test_that("errors with incompatible dimensions along an axis", {
     rray_dims_common(1:2, .dims = 3L)
   })
 })
+
+# ------------------------------------------------------------------------------
+# rray_dims_expand()
+
+test_that("can expand to the same dimensionality", {
+  expect_identical(rray_dims_expand(1, 1), 1L)
+})
+
+test_that("can expand to higher dimensionality", {
+  expect_identical(rray_dims_expand(2, 3), c(2L, 1L, 1L))
+  expect_identical(rray_dims_expand(c(3, 2), 4), c(3L, 2L, 1L, 1L))
+})
+
+test_that("cannot reduce dimensionality", {
+  expect_error(rray_dims_expand(c(2, 3), 1), "from 2 to 1")
+  expect_error(rray_dims_expand(1, 0), "from 1 to 0")
+})
+
+

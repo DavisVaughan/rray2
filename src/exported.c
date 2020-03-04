@@ -38,6 +38,22 @@ sexp* export_rray_dims_common(sexp* dims, sexp* absent, sexp* env) {
   return out;
 }
 
+sexp* export_rray_dims_expand(sexp* dims, sexp* dimensionality) {
+  dims = KEEP(vec_cast(dims, rray_shared_empty_int));
+  dimensionality = KEEP(vec_cast(dimensionality, rray_shared_empty_int));
+
+  if (r_length(dimensionality) != 1) {
+    r_abort("`dimensionality` must be length 1, not %td", r_length(dimensionality));
+  }
+
+  r_ssize dimensionality_ = r_int_get(dimensionality, 0);
+
+  sexp* out = rray_dims_expand(dims, dimensionality_);
+
+  FREE(2);
+  return out;
+}
+
 // elements.c
 
 sexp* export_rray_elements(sexp* x) {

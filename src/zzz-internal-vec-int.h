@@ -21,6 +21,10 @@ static inline int* r_int_deref(sexp* x) {
   return INTEGER(x);
 }
 
+static inline int r_int_get(sexp* x, r_ssize i) {
+  return r_int_deref(x)[i];
+}
+
 
 extern sexp* rray_shared_empty_int;
 extern sexp* rray_shared_zero_int;

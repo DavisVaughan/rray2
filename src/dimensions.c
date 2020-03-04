@@ -111,3 +111,35 @@ sexp* rray_dims_common(sexp* xs, sexp* dims, sexp* absent) {
   FREE(2);
   return dims;
 }
+
+// -----------------------------------------------------------------------------
+
+sexp* rray_dims_expand(sexp* dims, r_ssize dimensionality) {
+  r_ssize dims_dimensionality = r_length(dims);
+
+  if (dims_dimensionality == dimensionality) {
+    return dims;
+  }
+
+  if (dims_dimensionality > dimensionality) {
+    r_abort("Cannot reduce dimensionality from %td to %td", dims_dimensionality, dimensionality);
+  }
+
+  sexp* out = KEEP(r_new_int(dimensionality));
+  int* p_out = r_int_deref(out);
+
+  const int* p_dims = r_int_deref(dims);
+
+  r_ssize i = 0;
+
+  for (; i < dims_dimensionality; ++i) {
+    p_out[i] = p_dims[i];
+  }
+
+  for (; i < dimensionality; ++i) {
+    p_out[i] = 1;
+  }
+
+  FREE(1);
+  return out;
+}
