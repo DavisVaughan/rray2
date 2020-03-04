@@ -19,6 +19,13 @@
 #' @param .absent The dimensions to return when `...` is empty, or when all
 #'   inputs are `NULL`.
 #'
+#' @return
+#' - `rray_dims()`: An integer vector with a size equal to the dimensionality
+#'   of `x` holding the dimensions.
+#'
+#' - `rray_dims_common()`: An integer vector with a size equal to the
+#'   maximum dimensionality of the inputs holding the common dimensions.
+#'
 #' @export
 #' @examples
 #' rray_dims(1)

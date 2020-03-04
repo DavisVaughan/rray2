@@ -23,6 +23,9 @@
 #'
 #' @param x A vector
 #'
+#' @return A double vector with size equal to the dimensionality of `x` holding
+#'   the strides.
+#'
 #' @export
 #' @examples
 #' rray_strides(1:5)

@@ -9,6 +9,10 @@ rray_strides(x)
 \arguments{
 \item{x}{A vector}
 }
+\value{
+A double vector with size equal to the dimensionality of \code{x} holding
+the strides.
+}
 \description{
 \code{rray_strides()} computes the \emph{strides} of an array.
 

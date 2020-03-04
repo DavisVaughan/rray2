@@ -21,6 +21,14 @@ dimension computation from.}
 \item{.absent}{The dimensions to return when \code{...} is empty, or when all
 inputs are \code{NULL}.}
 }
+\value{
+\itemize{
+\item \code{rray_dims()}: An integer vector with a size equal to the dimensionality
+of \code{x} holding the dimensions.
+\item \code{rray_dims_common()}: An integer vector with a size equal to the
+maximum dimensionality of the inputs holding the common dimensions.
+}
+}
 \description{
 \itemize{
 \item \code{rray_dims()} computes the dimensions of a vector.

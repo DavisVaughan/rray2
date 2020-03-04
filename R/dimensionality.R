@@ -13,6 +13,8 @@
 #'
 #' @param x A vector
 #'
+#' @return An integer of size 1 of the dimensionality of `x`.
+#'
 #' @export
 #' @examples
 #' rray_dimensionality(1)

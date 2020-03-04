@@ -9,6 +9,9 @@ rray_dimensionality(x)
 \arguments{
 \item{x}{A vector}
 }
+\value{
+An integer of size 1 of the dimensionality of \code{x}.
+}
 \description{
 \code{rray_dimensionality()} computes the dimensionality of an object. This is
 also known as the "number of dimensions".
