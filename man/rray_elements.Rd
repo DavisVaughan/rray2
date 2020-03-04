@@ -23,6 +23,7 @@ predictable name and errors on scalar objects.
 
 \itemize{
 \item \code{vec_size(rray_elements(x)) == 1L}
+\item \code{vec_ptype(rray_elements(x)) == double()}
 \item \code{rray_elements(x) == prod(rray_dims(x))}
 }
 }

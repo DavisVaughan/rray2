@@ -9,6 +9,8 @@
 #'
 #' - `vec_size(rray_elements(x)) == 1L`
 #'
+#' - `vec_ptype(rray_elements(x)) == double()`
+#'
 #' - `rray_elements(x) == prod(rray_dims(x))`
 #'
 #' @param x A vector
