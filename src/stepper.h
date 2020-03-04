@@ -51,12 +51,57 @@ struct rray_stepper {
   n += 3;                                  \
 } while (0)
 
+// -----------------------------------------------------------------------------
 
 struct rray_stepper new_stepper(sexp* dims);
 
 void stepper_step(struct rray_stepper* p_stepper, r_ssize axis, r_ssize n);
 void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis);
-void stepper_loc(struct rray_stepper* p_stepper);
+void stepper_sync(struct rray_stepper* p_stepper);
 
+// -----------------------------------------------------------------------------
+
+#define STEPPER_INIT(X_DIMS, Y_DIMS, OUT_DIMENSIONALITY, N_PROTECT)       \
+  struct rray_stepper x_stepper = new_stepper(X_DIMS);                    \
+  struct rray_stepper* p_x_stepper = &x_stepper;                          \
+  KEEP_RRAY_STEPPER(p_x_stepper, N_PROTECT);                              \
+                                                                          \
+  struct rray_stepper y_stepper = new_stepper(Y_DIMS);                    \
+  struct rray_stepper* p_y_stepper = &y_stepper;                          \
+  KEEP_RRAY_STEPPER(p_y_stepper, N_PROTECT);                              \
+                                                                          \
+  sexp* out_loc_dims = KEEP_N(r_new_int(OUT_DIMENSIONALITY), N_PROTECT);  \
+  int* p_out_loc_dims = r_int_deref(out_loc_dims);                        \
+  memset(p_out_loc_dims, 0, OUT_DIMENSIONALITY * sizeof(int))
+
+
+#define STEPPER_SYNC(X_LOC, Y_LOC) do { \
+  stepper_sync(p_x_stepper);            \
+  stepper_sync(p_y_stepper);            \
+                                        \
+  x_loc = x_stepper.loc;                \
+  y_loc = y_stepper.loc;                \
+} while (0)
+
+
+#define STEPPER_NEXT(OUT_DIMENSIONALITY) do {                  \
+  for (r_ssize axis = 0; axis < OUT_DIMENSIONALITY; ++axis) {  \
+    ++p_out_loc_dims[axis];                                    \
+    stepper_step(p_x_stepper, axis, 1);                        \
+    stepper_step(p_y_stepper, axis, 1);                        \
+                                                               \
+    /* Continue along axis */                                  \
+    if (p_out_loc_dims[axis] < p_out_dims[axis]) {             \
+      break;                                                   \
+    }                                                          \
+                                                               \
+    /* Reset this axis, then move to the next axis */          \
+    p_out_loc_dims[axis] = 0;                                  \
+    stepper_reset(p_x_stepper, axis);                          \
+    stepper_reset(p_y_stepper, axis);                          \
+  }                                                            \
+} while (0)
+
+// -----------------------------------------------------------------------------
 
 #endif

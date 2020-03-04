@@ -69,7 +69,7 @@ void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis) {
   p_stepper->outdated = true;
 }
 
-void stepper_loc(struct rray_stepper* p_stepper) {
+void stepper_sync(struct rray_stepper* p_stepper) {
   if (!p_stepper->outdated) {
     return;
   }
