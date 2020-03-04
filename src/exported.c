@@ -2,6 +2,12 @@
 #include "library.h"
 #include "exported.h"
 
+// arithmetic.c
+
+sexp* export_rray_add(sexp* x, sexp* y) {
+  return rray_add(x, y);
+}
+
 // broadcast.c
 
 sexp* export_rray_broadcast(sexp* x, sexp* dims) {

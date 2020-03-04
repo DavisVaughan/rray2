@@ -4,6 +4,9 @@
 
 #include "internal.h"
 
+// arithmetic.c
+sexp* export_rray_add(sexp* x, sexp* y);
+
 // broadcast.c
 sexp* export_rray_broadcast(sexp* x, sexp* dims);
 

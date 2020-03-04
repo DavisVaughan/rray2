@@ -4,6 +4,7 @@
 // -----------------------------------------------------------------------------
 
 static const r_callable r_callables[] = {
+  {"export_rray_add",                      (r_fn_ptr) &export_rray_add, 2},
   {"export_rray_broadcast",                (r_fn_ptr) &export_rray_broadcast, 2},
   {"export_rray_dimensionality",           (r_fn_ptr) &export_rray_dimensionality, 1},
   {"export_rray_dims",                     (r_fn_ptr) &export_rray_dims, 1},
