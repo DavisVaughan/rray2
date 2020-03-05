@@ -128,7 +128,7 @@ test_that("`.absent` can be an integerish double", {
 })
 
 test_that("`.absent` is validated", {
-  expect_error(rray_dims_common(.absent = integer()), "must not be length 0")
+  expect_error(rray_dims_common(.absent = integer()), "`.absent` must have a length of at least 1, not 0")
   expect_error(rray_dims_common(.absent = "x"), class = "vctrs_error_cast_lossy")
 })
 
