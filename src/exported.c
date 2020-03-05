@@ -73,7 +73,7 @@ sexp* export_rray_dims_expand(sexp* dims, sexp* dimensionality) {
 
   sexp* out = rray_dims_expand(dims, dimensionality_);
 
-  FREE(2);
+  FREE(1);
   return out;
 }
 
