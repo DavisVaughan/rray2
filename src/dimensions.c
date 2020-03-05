@@ -146,6 +146,61 @@ sexp* rray_dims_expand(sexp* dims, r_ssize dimensionality) {
 
 // -----------------------------------------------------------------------------
 
+/*
+ * Split `dims` into a list of size two. The first element of the list holds
+ * the dims specified by `axes`, the second element of the list holds the
+ * remaining dims. Dims are split in the order specified by `axes`.
+ */
+sexp* rray_dims_split(sexp* dims, sexp* axes) {
+  sexp* out = KEEP(r_new_list(2));
+
+  const r_ssize dimensionality = r_length(dims);
+
+  const r_ssize axes_dims_size = r_length(axes);
+  const r_ssize non_axes_dims_size = dimensionality - axes_dims_size;
+
+  sexp* axes_dims = KEEP(r_new_int(axes_dims_size));
+  sexp* non_axes_dims = KEEP(r_new_int(non_axes_dims_size));
+
+  int* p_axes_dims = r_int_deref(axes_dims);
+  int* p_non_axes_dims = r_int_deref(non_axes_dims);
+
+  const int* p_dims = r_int_deref(dims);
+  const int* p_axes = r_int_deref(axes);
+
+  int non_axes_dims_loc = 0;
+
+  for (r_ssize i = 0; i < dimensionality; ++i) {
+    const int axis = i + 1;
+    bool seen = false;
+
+    for (r_ssize j = 0; j < axes_dims_size; ++j) {
+      if (axis != p_axes[j]) {
+        continue;
+      }
+
+      p_axes_dims[j] = p_dims[i];
+      seen = true;
+      break;
+    }
+
+    if (seen) {
+      continue;
+    }
+
+    p_non_axes_dims[non_axes_dims_loc] = p_dims[i];
+    ++non_axes_dims_loc;
+  }
+
+  r_list_set(out, 0, axes_dims);
+  r_list_set(out, 1, non_axes_dims);
+
+  FREE(3);
+  return out;
+}
+
+// -----------------------------------------------------------------------------
+
 sexp* rray_as_dims(sexp* dims) {
   dims = KEEP(vec_cast(dims, rray_shared_empty_int));
 

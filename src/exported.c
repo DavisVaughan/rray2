@@ -77,6 +77,18 @@ sexp* export_rray_dims_expand(sexp* dims, sexp* dimensionality) {
   return out;
 }
 
+sexp* export_rray_dims_split(sexp* dims, sexp* axes) {
+  dims = KEEP(rray_as_dims(dims));
+
+  r_ssize dimensionality = r_length(dims);
+  axes = KEEP(rray_as_axes(axes, dimensionality));
+
+  sexp* out = rray_dims_split(dims, axes);
+
+  FREE(2);
+  return out;
+}
+
 sexp* export_rray_as_dims(sexp* dims) {
   return rray_as_dims(dims);
 }

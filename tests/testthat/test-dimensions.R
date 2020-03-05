@@ -166,6 +166,26 @@ test_that("cannot reduce dimensionality", {
 })
 
 # ------------------------------------------------------------------------------
+# rray_dims_split()
+
+test_that("can do a standard dims split", {
+  expect_identical(rray_dims_split(c(1, 2), 1), list(1L, 2L))
+})
+
+test_that("can select no `axes`", {
+  expect_identical(rray_dims_split(c(4, 2), integer()), list(integer(), c(4L, 2L)))
+})
+
+test_that("can select all `axes`", {
+  expect_identical(rray_dims_split(c(4, 2), c(1, 2)), list(c(4L, 2L), integer()))
+})
+
+test_that("dims are split in the order specified by `axes`", {
+  expect_identical(rray_dims_split(c(4, 3), c(2, 1)), list(c(3L, 4L), integer()))
+  expect_identical(rray_dims_split(c(4, 3, 5), c(3, 1)), list(c(5L, 4L), 3L))
+})
+
+# ------------------------------------------------------------------------------
 # rray_as_dims()
 
 test_that("dims are cast to integer", {

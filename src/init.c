@@ -22,6 +22,7 @@ static const r_callable r_callables[] = {
   {"export_rray_dims2",                    (r_fn_ptr) &export_rray_dims2, 2},
   {"export_rray_dims_common",              (r_fn_ptr) &export_rray_dims_common, 3},
   {"export_rray_dims_expand",              (r_fn_ptr) &export_rray_dims_expand, 2},
+  {"export_rray_dims_split",               (r_fn_ptr) &export_rray_dims_split, 2},
   {"export_rray_as_dims",                  (r_fn_ptr) &export_rray_as_dims, 1},
 
   // elements.c

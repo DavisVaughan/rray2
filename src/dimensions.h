@@ -8,6 +8,7 @@ sexp* rray_dims(sexp* x);
 sexp* rray_dims2(sexp* x, sexp* y);
 sexp* rray_dims_common(sexp* xs, sexp* dims, sexp* absent);
 sexp* rray_dims_expand(sexp* dims, r_ssize dimensionality);
+sexp* rray_dims_split(sexp* dims, sexp* axes);
 sexp* rray_as_dims(sexp* dims);
 
 
