@@ -1,7 +1,7 @@
 #ifndef RRAY_STEPPER_H
 #define RRAY_STEPPER_H
 
-
+#include "location.h"
 #include "internal.h"
 
 /*
@@ -52,13 +52,62 @@ struct rray_stepper {
   n += 3;                                  \
 } while (0)
 
-// -----------------------------------------------------------------------------
 
 struct rray_stepper new_stepper(sexp* dims);
 
-void stepper_step(struct rray_stepper* p_stepper, r_ssize axis, r_ssize n);
-void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis);
-void stepper_sync(struct rray_stepper* p_stepper);
+// -----------------------------------------------------------------------------
+
+static inline void stepper_step(struct rray_stepper* p_stepper, r_ssize axis, r_ssize n) {
+  const r_ssize dimensionality = p_stepper->dimensionality;
+
+  if (axis >= dimensionality) {
+    return;
+  }
+
+  const bool* p_broadcastable = p_stepper->p_broadcastable;
+
+  if (p_broadcastable[axis]) {
+    return;
+  }
+
+  p_stepper->p_array_loc[axis] += n;
+  p_stepper->outdated = true;
+}
+
+static inline void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis) {
+  const r_ssize dimensionality = p_stepper->dimensionality;
+
+  if (axis >= dimensionality) {
+    return;
+  }
+
+  const bool* p_broadcastable = p_stepper->p_broadcastable;
+
+  if (p_broadcastable[axis]) {
+    return;
+  }
+
+  p_stepper->p_array_loc[axis] = 0;
+  p_stepper->outdated = true;
+}
+
+static inline void stepper_sync(struct rray_stepper* p_stepper) {
+  if (!p_stepper->outdated) {
+    return;
+  }
+
+  const r_ssize dimensionality = p_stepper->dimensionality;
+  const int* p_array_loc = p_stepper->p_array_loc;
+  const r_ssize* p_strides = p_stepper->p_strides;
+
+  p_stepper->loc = rray_array_loc_as_flat_loc(
+    p_array_loc,
+    p_strides,
+    dimensionality
+  );
+
+  p_stepper->outdated = false;
+}
 
 // -----------------------------------------------------------------------------
 
