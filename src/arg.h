@@ -4,7 +4,7 @@
 
 #include "internal.h"
 
-const char* rray_as_arg(sexp* arg);
+const char* rray_as_arg(sexp* arg, const char* arg_arg);
 
 
 #endif
