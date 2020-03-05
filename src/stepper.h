@@ -5,13 +5,13 @@
 #include "internal.h"
 
 /*
- * @param loc The flat location that matches the shaped location
- *   currently in `loc_dims`. If `outdated` is `true`, this `loc` needs
- *   to be updated with a call to `stepper_loc()`.
+ * @param loc The flat location that matches the array location
+ *   currently in `array_loc`. If `outdated` is `true`, this `loc` needs
+ *   to be updated with a call to `stepper_sync()`.
  *
- * @param loc_dims The current shaped location. This is updated through
- *   `p_loc_dims` when `stepper_step()` or `stepper_reset()` is called.
- * @param p_loc_dims The pointer to `loc_dims`.
+ * @param array_loc The current array location. This is updated through
+ *   `p_array_loc` when `stepper_step()` or `stepper_reset()` is called.
+ * @param p_array_loc The pointer to `array_loc`.
  *
  * @param broadcastable A raw vector storing an array of booleans. These return
  *   true of `dim[axis]` is 1, and false otherwise.
@@ -31,8 +31,8 @@
 struct rray_stepper {
   r_ssize loc;
 
-  sexp* loc_dims;
-  int* p_loc_dims;
+  sexp* array_loc;
+  int* p_array_loc;
 
   sexp* broadcastable;
   const bool* p_broadcastable;
@@ -46,7 +46,7 @@ struct rray_stepper {
 
 
 #define KEEP_RRAY_STEPPER(stepper, n) do { \
-  KEEP((stepper)->loc_dims);               \
+  KEEP((stepper)->array_loc);              \
   KEEP((stepper)->broadcastable);          \
   KEEP((stepper)->strides);                \
   n += 3;                                  \
@@ -79,9 +79,9 @@ void stepper_sync(struct rray_stepper* p_stepper);
   struct rray_stepper* p_x_stepper = &x_stepper;                            \
   KEEP_RRAY_STEPPER(p_x_stepper, N_PROTECT);                                \
                                                                             \
-  sexp* out_loc_dims = KEEP_N(r_new_int(OUT_DIMENSIONALITY), N_PROTECT);    \
-  int* p_out_loc_dims = r_int_deref(out_loc_dims);                          \
-  memset(p_out_loc_dims, 0, OUT_DIMENSIONALITY * sizeof(int))
+  sexp* out_array_loc = KEEP_N(r_new_int(OUT_DIMENSIONALITY), N_PROTECT);   \
+  int* p_out_array_loc = r_int_deref(out_array_loc);                        \
+  memset(p_out_array_loc, 0, OUT_DIMENSIONALITY * sizeof(int))
 
 
 #define STEPPER_UNARY_SYNC(X_LOC) do { \
@@ -92,16 +92,16 @@ void stepper_sync(struct rray_stepper* p_stepper);
 
 #define STEPPER_UNARY_NEXT(OUT_DIMENSIONALITY, P_OUT_DIMS) do { \
   for (r_ssize axis = 0; axis < OUT_DIMENSIONALITY; ++axis) {   \
-    ++p_out_loc_dims[axis];                                     \
+    ++p_out_array_loc[axis];                                    \
     stepper_step(p_x_stepper, axis, 1);                         \
                                                                 \
     /* Continue along axis */                                   \
-    if (p_out_loc_dims[axis] < P_OUT_DIMS[axis]) {              \
+    if (p_out_array_loc[axis] < P_OUT_DIMS[axis]) {             \
       break;                                                    \
     }                                                           \
                                                                 \
     /* Reset this axis, then move to the next axis */           \
-    p_out_loc_dims[axis] = 0;                                   \
+    p_out_array_loc[axis] = 0;                                  \
     stepper_reset(p_x_stepper, axis);                           \
   }                                                             \
 } while (0)
@@ -116,9 +116,9 @@ void stepper_sync(struct rray_stepper* p_stepper);
   struct rray_stepper* p_y_stepper = &y_stepper;                            \
   KEEP_RRAY_STEPPER(p_y_stepper, N_PROTECT);                                \
                                                                             \
-  sexp* out_loc_dims = KEEP_N(r_new_int(OUT_DIMENSIONALITY), N_PROTECT);    \
-  int* p_out_loc_dims = r_int_deref(out_loc_dims);                          \
-  memset(p_out_loc_dims, 0, OUT_DIMENSIONALITY * sizeof(int))
+  sexp* out_array_loc = KEEP_N(r_new_int(OUT_DIMENSIONALITY), N_PROTECT);   \
+  int* p_out_array_loc = r_int_deref(out_array_loc);                        \
+  memset(p_out_array_loc, 0, OUT_DIMENSIONALITY * sizeof(int))
 
 
 #define STEPPER_BINARY_SYNC(X_LOC, Y_LOC) do { \
@@ -132,17 +132,17 @@ void stepper_sync(struct rray_stepper* p_stepper);
 
 #define STEPPER_BINARY_NEXT(OUT_DIMENSIONALITY, P_OUT_DIMS) do { \
   for (r_ssize axis = 0; axis < OUT_DIMENSIONALITY; ++axis) {    \
-    ++p_out_loc_dims[axis];                                      \
+    ++p_out_array_loc[axis];                                     \
     stepper_step(p_x_stepper, axis, 1);                          \
     stepper_step(p_y_stepper, axis, 1);                          \
                                                                  \
     /* Continue along axis */                                    \
-    if (p_out_loc_dims[axis] < P_OUT_DIMS[axis]) {               \
+    if (p_out_array_loc[axis] < P_OUT_DIMS[axis]) {              \
       break;                                                     \
     }                                                            \
                                                                  \
     /* Reset this axis, then move to the next axis */            \
-    p_out_loc_dims[axis] = 0;                                    \
+    p_out_array_loc[axis] = 0;                                   \
     stepper_reset(p_x_stepper, axis);                            \
     stepper_reset(p_y_stepper, axis);                            \
   }                                                              \

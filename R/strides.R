@@ -11,8 +11,8 @@
 #' - Computing the cumulative product of the result
 #'
 #' Strides are used internally for broadcasting and help transition from
-#' _shaped_ locations to _flat_ locations. For example, given a `(3, 2, 3)`
-#' array, a shaped location of `[2, 1, 3]` would correspond to a flat location
+#' _array_ locations to _flat_ locations. For example, given a `(3, 2, 3)`
+#' array, an array location of `[2, 1, 3]` would correspond to a flat location
 #' of `14`, which could be used to index a 1D version of the array.
 #'
 #' @section Invariants:
@@ -38,10 +38,10 @@
 #' # Look along the second axis
 #' as.vector(x[, 1, , drop = FALSE])
 #'
-#' # We can use the strides to transform shaped locations to
+#' # We can use the strides to transform array locations to
 #' # flat locations that we can index `x_flat` with to extract
 #' # the first column. This algorithm only works if the
-#' # shaped locations are 0-based, and it returns a 0-based location.
+#' # array locations are 0-based, and it returns a 0-based location.
 #' axis1 <- c(0, 1, 2, 0, 1, 2, 0, 1, 2)
 #' axis2 <- c(0, 0, 0, 0, 0, 0, 0, 0, 0)
 #' axis3 <- c(0, 0, 0, 1, 1, 1, 2, 2, 2)

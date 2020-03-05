@@ -25,8 +25,8 @@ are computed from the dimensions of the array by:
 }
 
 Strides are used internally for broadcasting and help transition from
-\emph{shaped} locations to \emph{flat} locations. For example, given a \verb{(3, 2, 3)}
-array, a shaped location of \verb{[2, 1, 3]} would correspond to a flat location
+\emph{array} locations to \emph{flat} locations. For example, given a \verb{(3, 2, 3)}
+array, an array location of \verb{[2, 1, 3]} would correspond to a flat location
 of \code{14}, which could be used to index a 1D version of the array.
 }
 \section{Invariants}{
@@ -48,10 +48,10 @@ x_flat <- as.vector(x)
 # Look along the second axis
 as.vector(x[, 1, , drop = FALSE])
 
-# We can use the strides to transform shaped locations to
+# We can use the strides to transform array locations to
 # flat locations that we can index `x_flat` with to extract
 # the first column. This algorithm only works if the
-# shaped locations are 0-based, and it returns a 0-based location.
+# array locations are 0-based, and it returns a 0-based location.
 axis1 <- c(0, 1, 2, 0, 1, 2, 0, 1, 2)
 axis2 <- c(0, 0, 0, 0, 0, 0, 0, 0, 0)
 axis3 <- c(0, 0, 0, 1, 1, 1, 2, 2, 2)

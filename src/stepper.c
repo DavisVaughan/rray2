@@ -3,9 +3,9 @@
 struct rray_stepper new_stepper(sexp* dims) {
   r_ssize dimensionality = r_length(dims);
 
-  sexp* loc_dims = KEEP(r_new_int(dimensionality));
-  int* p_loc_dims = r_int_deref(loc_dims);
-  memset(p_loc_dims, 0, dimensionality * sizeof(int));
+  sexp* array_loc = KEEP(r_new_int(dimensionality));
+  int* p_array_loc = r_int_deref(array_loc);
+  memset(p_array_loc, 0, dimensionality * sizeof(int));
 
   sexp* strides = KEEP(rray_strides_from_dims(dims));
   const r_ssize* p_strides = rray_strides_const_deref(strides);
@@ -21,8 +21,8 @@ struct rray_stepper new_stepper(sexp* dims) {
 
   struct rray_stepper stepper = {
     .loc = 0,
-    .loc_dims = loc_dims,
-    .p_loc_dims = p_loc_dims,
+    .array_loc = array_loc,
+    .p_array_loc = p_array_loc,
     .broadcastable = broadcastable,
     .p_broadcastable = p_broadcastable,
     .strides = strides,
@@ -48,7 +48,7 @@ void stepper_step(struct rray_stepper* p_stepper, r_ssize axis, r_ssize n) {
     return;
   }
 
-  p_stepper->p_loc_dims[axis] += n;
+  p_stepper->p_array_loc[axis] += n;
   p_stepper->outdated = true;
 }
 
@@ -65,7 +65,7 @@ void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis) {
     return;
   }
 
-  p_stepper->p_loc_dims[axis] = 0;
+  p_stepper->p_array_loc[axis] = 0;
   p_stepper->outdated = true;
 }
 
@@ -75,11 +75,11 @@ void stepper_sync(struct rray_stepper* p_stepper) {
   }
 
   const r_ssize dimensionality = p_stepper->dimensionality;
-  const int* p_loc_dims = p_stepper->p_loc_dims;
+  const int* p_array_loc = p_stepper->p_array_loc;
   const r_ssize* p_strides = p_stepper->p_strides;
 
   p_stepper->loc = rray_array_loc_as_flat_loc(
-    p_loc_dims,
+    p_array_loc,
     p_strides,
     dimensionality
   );
