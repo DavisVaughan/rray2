@@ -23,3 +23,7 @@
 rray_dimensionality <- function(x) {
   .Call(export_rray_dimensionality, x)
 }
+
+rray_as_dimensionality <- function(dimensionality) {
+  .Call(export_rray_as_dimensionality, dimensionality)
+}

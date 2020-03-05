@@ -1,0 +1,24 @@
+
+cannot have negative dimensionality
+===================================
+
+> rray_as_dimensionality(-1)
+Error: `dimensionality` cannot be negative.
+
+
+cannot have missing dimensionality
+==================================
+
+> rray_as_dimensionality(NA_integer_)
+Error: `dimensionality` cannot be `NA`.
+
+
+dimensionality must have length 1
+=================================
+
+> rray_as_dimensionality(integer())
+Error: `dimensionality` must be length 1, not 0.
+
+> rray_as_dimensionality(c(1L, 2L))
+Error: `dimensionality` must be length 1, not 2.
+

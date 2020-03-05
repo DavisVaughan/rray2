@@ -6,6 +6,7 @@
 
 r_ssize rray_dimensionality(sexp* x);
 r_ssize rray_dimensionality2(r_ssize x_dimensionality, r_ssize y_dimensionality);
+r_ssize rray_as_dimensionality(sexp* dimensionality);
 
 
 #endif

@@ -34,3 +34,26 @@ r_ssize rray_dimensionality2(r_ssize x_dimensionality, r_ssize y_dimensionality)
     return y_dimensionality;
   }
 }
+
+// -----------------------------------------------------------------------------
+
+r_ssize rray_as_dimensionality(sexp* dimensionality) {
+  dimensionality = KEEP(vec_cast(dimensionality, rray_shared_empty_int));
+
+  if (r_length(dimensionality) != 1) {
+    r_abort("`dimensionality` must be length 1, not %td.", r_length(dimensionality));
+  }
+
+  r_ssize out = r_int_get(dimensionality, 0);
+
+  if (out < 0) {
+    if (out == r_na_int) {
+      r_abort("`dimensionality` cannot be `NA`.");
+    } else {
+      r_abort("`dimensionality` cannot be negative.");
+    }
+  }
+
+  FREE(1);
+  return out;
+}

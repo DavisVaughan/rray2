@@ -15,6 +15,7 @@ static const r_callable r_callables[] = {
 
   // dimensionality.c
   {"export_rray_dimensionality",           (r_fn_ptr) &export_rray_dimensionality, 1},
+  {"export_rray_as_dimensionality",        (r_fn_ptr) &export_rray_as_dimensionality, 1},
 
   // dimensions.c
   {"export_rray_dims",                     (r_fn_ptr) &export_rray_dims, 1},

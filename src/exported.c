@@ -36,6 +36,11 @@ sexp* export_rray_dimensionality(sexp* x) {
   return r_scalar_int(rray_dimensionality(x));
 }
 
+sexp* export_rray_as_dimensionality(sexp* dimensionality) {
+  r_ssize dimensionality_ = rray_as_dimensionality(dimensionality);
+  return r_length_as_scalar_int(dimensionality_);
+}
+
 // dimensions.c
 
 sexp* export_rray_dims(sexp* x) {

@@ -1,3 +1,6 @@
+# ------------------------------------------------------------------------------
+# rray_dimensionality()
+
 test_that("fails on non-vector types", {
   expect_error(rray_dimensionality(mean), "must be a vector, not a function")
   expect_error(rray_dimensionality(quote(x)), "must be a vector, not a symbol")
@@ -41,4 +44,44 @@ test_that("works with arrays of all dimensionalities", {
   expect_identical(rray_dimensionality(x1), 1L)
   expect_identical(rray_dimensionality(x11), 2L)
   expect_identical(rray_dimensionality(x111), 3L)
+})
+
+# ------------------------------------------------------------------------------
+# rray_as_dimensionality()
+
+test_that("dimensionality is cast to integer", {
+  expect_type(rray_as_dimensionality(1), "integer")
+})
+
+test_that("cannot have negative dimensionality", {
+  verify_errors({
+    expect_error(rray_as_dimensionality(-1))
+  })
+})
+
+test_that("cannot have missing dimensionality", {
+  verify_errors({
+    expect_error(rray_as_dimensionality(NA_integer_))
+  })
+})
+
+test_that("dimensionality must have length 1", {
+  verify_errors({
+    expect_error(rray_as_dimensionality(integer()))
+    expect_error(rray_as_dimensionality(c(1L, 2L)))
+  })
+})
+
+test_that("rray_as_dimensionality() produces informative errors", {
+  verify_output(test_path("output/test-axes-rray-as-dimensionality.txt"), {
+    "# cannot have negative dimensionality"
+    rray_as_dimensionality(-1)
+
+    "# cannot have missing dimensionality"
+    rray_as_dimensionality(NA_integer_)
+
+    "# dimensionality must have length 1"
+    rray_as_dimensionality(integer())
+    rray_as_dimensionality(c(1L, 2L))
+  })
 })
