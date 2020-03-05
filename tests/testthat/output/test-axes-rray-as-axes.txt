@@ -9,6 +9,13 @@ Error: A negative `axes` value was found at location 1.
 Error: A negative `axes` value was found at location 2.
 
 
+cannot select zero axes
+=======================
+
+> rray_as_axes(0, 1)
+Error: A zero `axes` value was found at location 1.
+
+
 cannot select `NA` axes
 =======================
 

@@ -20,13 +20,15 @@ sexp* rray_as_axes(sexp* axes, r_ssize dimensionality) {
       );
     }
 
-    if (axis >= 0) {
+    if (axis > 0) {
       continue;
     }
 
-    // `NA` or negative
+    // `NA`, negative, or zero
     if (axis == r_na_int) {
       r_abort("A missing `axes` value was found at location %td.", i + 1);
+    } else if (axis == 0) {
+      r_abort("A zero `axes` value was found at location %td.", i + 1);
     } else {
       r_abort("A negative `axes` value was found at location %td.", i + 1);
     }

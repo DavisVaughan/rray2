@@ -20,6 +20,12 @@ test_that("cannot select negative axes", {
   })
 })
 
+test_that("cannot select zero axes", {
+  verify_errors({
+    expect_error(rray_as_axes(0, 1))
+  })
+})
+
 test_that("cannot select `NA` axes", {
   verify_errors({
     expect_error(rray_as_axes(NA_integer_, 1))
@@ -37,6 +43,9 @@ test_that("rray_as_axes() produces informative errors", {
     "# cannot select negative axes"
     rray_as_axes(-1, 1)
     rray_as_axes(c(1, -1), 1)
+
+    "# cannot select zero axes"
+    rray_as_axes(0, 1)
 
     "# cannot select `NA` axes"
     rray_as_axes(NA_integer_, 1)
