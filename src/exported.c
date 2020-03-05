@@ -8,6 +8,13 @@ sexp* export_rray_add(sexp* x, sexp* y) {
   return rray_add(x, y);
 }
 
+// axes.c
+
+sexp* export_rray_as_axes(sexp* axes, sexp* dimensionality) {
+  r_ssize dimensionality_ = rray_as_dimensionality(dimensionality);
+  return rray_as_axes(axes, dimensionality_);
+}
+
 // broadcast.c
 
 sexp* export_rray_broadcast(sexp* x, sexp* dims) {

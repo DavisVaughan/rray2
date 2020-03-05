@@ -5,6 +5,7 @@
 #include "internal.h"
 
 #include "arithmetic.h"
+#include "axes.h"
 #include "broadcast.h"
 #include "dimensionality.h"
 #include "dimensions.h"

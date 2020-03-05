@@ -1,0 +1,24 @@
+
+cannot select negative axes
+===========================
+
+> rray_as_axes(-1, 1)
+Error: A negative `axes` value was found at location 1.
+
+> rray_as_axes(c(1, -1), 1)
+Error: A negative `axes` value was found at location 2.
+
+
+cannot select `NA` axes
+=======================
+
+> rray_as_axes(NA_integer_, 1)
+Error: A missing `axes` value was found at location 1.
+
+
+cannot select axes past the dimensionality
+==========================================
+
+> rray_as_axes(3, 2)
+Error: `axes` attempts to select axis 3, which is greater than the dimensionality, 2.
+
