@@ -39,6 +39,9 @@ static const r_callable r_callables[] = {
   {"export_rray_strides",                  (r_fn_ptr) &export_rray_strides, 1},
   {"export_rray_strides_from_dims",        (r_fn_ptr) &export_rray_strides_from_dims, 1},
 
+  // reducer.c
+  {"export_rray_sum",                      (r_fn_ptr) &export_rray_sum, 2},
+
   {NULL, NULL, 0}
 };
 

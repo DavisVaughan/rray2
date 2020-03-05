@@ -152,6 +152,18 @@ sexp* export_rray_init_library() {
   return r_null;
 }
 
+// reducer.c
+
+sexp* export_rray_sum(sexp* x, sexp* axes) {
+  r_ssize dimensionality = rray_dimensionality(x);
+  axes = KEEP(rray_as_axes(axes, dimensionality));
+
+  sexp* out = rray_sum(x, axes);
+
+  FREE(1);
+  return out;
+}
+
 // strides.c
 
 sexp* export_rray_strides(sexp* x) {

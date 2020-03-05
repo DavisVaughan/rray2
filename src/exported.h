@@ -39,4 +39,7 @@ sexp* export_rray_init_library();
 sexp* export_rray_strides(sexp* x);
 sexp* export_rray_strides_from_dims(sexp* dims);
 
+// reducer.c
+sexp* export_rray_sum(sexp* x, sexp* axes);
+
 #endif

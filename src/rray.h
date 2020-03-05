@@ -12,6 +12,7 @@
 #include "dimensions.h"
 #include "elements.h"
 #include "location.h"
+#include "reducer.h"
 #include "stepper.h"
 #include "strides.h"
 
