@@ -4,6 +4,7 @@
 
 #include "internal.h"
 
+#include "arg.h"
 #include "arithmetic.h"
 #include "axes.h"
 #include "broadcast.h"
