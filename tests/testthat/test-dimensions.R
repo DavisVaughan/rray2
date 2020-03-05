@@ -172,6 +172,10 @@ test_that("dims are cast to integer", {
   expect_type(rray_as_dims(1), "integer")
 })
 
+test_that("dims are allowed to be zero", {
+  expect_identical(rray_as_dims(c(0, 1, 0)), c(0L, 1L, 0L))
+})
+
 test_that("cannot have negative dims", {
   verify_errors({
     expect_error(rray_as_dims(-1))
