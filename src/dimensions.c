@@ -40,6 +40,18 @@ sexp* rray_dims(sexp* x) {
 
 // -----------------------------------------------------------------------------
 
+static inline r_ssize rray_axis2(r_ssize axis, r_ssize x_dim, r_ssize y_dim) {
+  if (x_dim == y_dim) {
+    return x_dim;
+  } else if (x_dim == 1) {
+    return y_dim;
+  } else if (y_dim == 1) {
+    return x_dim;
+  } else {
+    r_abort("Dimensions along axis %td cannot be broadcast: %td, %td.", axis, x_dim, y_dim);
+  }
+}
+
 static sexp* rray_dims2_impl(sexp* x_dims, sexp* y_dims) {
   if (x_dims == r_null) {
     return y_dims;
