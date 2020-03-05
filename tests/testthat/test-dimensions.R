@@ -119,7 +119,7 @@ test_that("`.dims` can be an integerish double", {
 })
 
 test_that("`.dims` is validated", {
-  expect_error(rray_dims_common(.dims = integer()), "must not be length 0")
+  expect_error(rray_dims_common(.dims = integer()), "`.dims` must have a length of at least 1, not 0")
   expect_error(rray_dims_common(.dims = "x"), class = "vctrs_error_cast_lossy")
 })
 
@@ -221,6 +221,13 @@ test_that("dims are type checked", {
   })
 })
 
+test_that("dims_arg is validated", {
+  verify_errors({
+    expect_error(rray_as_dims(1, 1))
+    expect_error(rray_as_dims(1, c("x", "y")))
+  })
+})
+
 test_that("rray_as_dims() produces informative errors", {
   verify_output(test_path("output/test-axes-rray-as-dims.txt"), {
     "# cannot have negative dims"
@@ -235,5 +242,18 @@ test_that("rray_as_dims() produces informative errors", {
 
     "# dims are type checked"
     rray_as_dims("x")
+
+    "# dims_arg is validated"
+    rray_as_dims(1, 1)
+    rray_as_dims(1, c("x", "y"))
+  })
+})
+
+test_that("rray_as_dims() `dims_arg` argument can be controlled", {
+  verify_output(test_path("output/test-axes-rray-as-dims-dims-arg.txt"), {
+    "# dims_arg can be changed"
+    rray_as_dims(-1, ".dims")
+    rray_as_dims(NA, ".dims")
+    rray_as_dims(integer(), ".dims")
   })
 })

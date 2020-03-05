@@ -23,7 +23,7 @@ sexp* export_rray_dims2(sexp* x, sexp* y);
 sexp* export_rray_dims_common(sexp* dims, sexp* absent, sexp* env);
 sexp* export_rray_dims_expand(sexp* dims, sexp* dimensionality);
 sexp* export_rray_dims_split(sexp* dims, sexp* axes);
-sexp* export_rray_as_dims(sexp* dims);
+sexp* export_rray_as_dims(sexp* dims, sexp* dims_arg);
 
 // elements.c
 sexp* export_rray_elements(sexp* x);

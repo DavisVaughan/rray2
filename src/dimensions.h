@@ -9,7 +9,7 @@ sexp* rray_dims2(sexp* x, sexp* y);
 sexp* rray_dims_common(sexp* xs, sexp* dims, sexp* absent);
 sexp* rray_dims_expand(sexp* dims, r_ssize dimensionality);
 sexp* rray_dims_split(sexp* dims, sexp* axes);
-sexp* rray_as_dims(sexp* dims);
+sexp* rray_as_dims(sexp* dims, const char* dims_arg);
 
 
 static inline r_ssize rray_axis2(r_ssize axis, r_ssize x_dim, r_ssize y_dim) {

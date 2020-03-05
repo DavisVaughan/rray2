@@ -76,6 +76,6 @@ rray_dims_split <- function(dims, axes) {
   .Call(export_rray_dims_split, dims, axes)
 }
 
-rray_as_dims <- function(dims) {
-  .Call(export_rray_as_dims, dims)
+rray_as_dims <- function(dims, dims_arg = "dims") {
+  .Call(export_rray_as_dims, dims, dims_arg)
 }

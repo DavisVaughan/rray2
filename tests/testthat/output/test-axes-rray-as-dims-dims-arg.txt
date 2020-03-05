@@ -1,0 +1,13 @@
+
+dims_arg can be changed
+=======================
+
+> rray_as_dims(-1, ".dims")
+Error: A negative `.dims` value was found at location 1.
+
+> rray_as_dims(NA, ".dims")
+Error: A missing `.dims` value was found at location 1.
+
+> rray_as_dims(integer(), ".dims")
+Error: `.dims` must have a length of at least 1, not 0.
+

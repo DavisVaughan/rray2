@@ -201,13 +201,13 @@ sexp* rray_dims_split(sexp* dims, sexp* axes) {
 
 // -----------------------------------------------------------------------------
 
-sexp* rray_as_dims(sexp* dims) {
+sexp* rray_as_dims(sexp* dims, const char* dims_arg) {
   dims = KEEP(vec_cast(dims, rray_shared_empty_int));
 
   r_ssize size = r_length(dims);
 
   if (size == 0) {
-    r_abort("`dims` must have a length of at least 1, not 0.");
+    r_abort("`%s` must have a length of at least 1, not 0.", dims_arg);
   }
 
   const int* p_dims = r_int_deref(dims);
@@ -220,9 +220,9 @@ sexp* rray_as_dims(sexp* dims) {
     }
 
     if (dim == r_na_int) {
-      r_abort("A missing `dims` value was found at location %td.", i + 1);
+      r_abort("A missing `%s` value was found at location %td.", dims_arg, i + 1);
     } else {
-      r_abort("A negative `dims` value was found at location %td.", i + 1);
+      r_abort("A negative `%s` value was found at location %td.", dims_arg, i + 1);
     }
   }
 

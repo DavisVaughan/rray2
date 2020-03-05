@@ -18,7 +18,7 @@ sexp* export_rray_as_axes(sexp* axes, sexp* dimensionality) {
 // broadcast.c
 
 sexp* export_rray_broadcast(sexp* x, sexp* dims) {
-  dims = KEEP(rray_as_dims(dims));
+  dims = KEEP(rray_as_dims(dims, r_c_arg_dims));
 
   sexp* out = rray_broadcast(x, dims);
 
@@ -51,7 +51,7 @@ sexp* export_rray_dims_common(sexp* dims, sexp* absent, sexp* env) {
   sexp* xs = KEEP(rlang_env_dots_list(env));
 
   if (dims != r_null) {
-    dims = rray_as_dims(dims);
+    dims = rray_as_dims(dims, r_c_arg_dot_dims);
   }
   KEEP(dims);
 
@@ -68,7 +68,7 @@ sexp* export_rray_dims_common(sexp* dims, sexp* absent, sexp* env) {
 }
 
 sexp* export_rray_dims_expand(sexp* dims, sexp* dimensionality) {
-  dims = KEEP(rray_as_dims(dims));
+  dims = KEEP(rray_as_dims(dims, r_c_arg_dims));
   r_ssize dimensionality_ = rray_as_dimensionality(dimensionality);
 
   sexp* out = rray_dims_expand(dims, dimensionality_);
@@ -78,7 +78,7 @@ sexp* export_rray_dims_expand(sexp* dims, sexp* dimensionality) {
 }
 
 sexp* export_rray_dims_split(sexp* dims, sexp* axes) {
-  dims = KEEP(rray_as_dims(dims));
+  dims = KEEP(rray_as_dims(dims, r_c_arg_dims));
 
   r_ssize dimensionality = r_length(dims);
   axes = KEEP(rray_as_axes(axes, dimensionality));
@@ -89,8 +89,9 @@ sexp* export_rray_dims_split(sexp* dims, sexp* axes) {
   return out;
 }
 
-sexp* export_rray_as_dims(sexp* dims) {
-  return rray_as_dims(dims);
+sexp* export_rray_as_dims(sexp* dims, sexp* dims_arg) {
+  const char* dims_arg_ = rray_as_arg(dims_arg, r_c_arg_dims_arg);
+  return rray_as_dims(dims, dims_arg_);
 }
 
 // elements.c
@@ -100,7 +101,7 @@ sexp* export_rray_elements(sexp* x) {
 }
 
 sexp* export_rray_elements_from_dims(sexp* dims) {
-  dims = KEEP(rray_as_dims(dims));
+  dims = KEEP(rray_as_dims(dims, r_c_arg_dims));
 
   r_ssize elements = rray_elements_from_dims(dims);
   sexp* out = r_length_as_scalar_dbl(elements);
@@ -123,7 +124,7 @@ sexp* export_rray_strides(sexp* x) {
 }
 
 sexp* export_rray_strides_from_dims(sexp* dims) {
-  dims = KEEP(rray_as_dims(dims));
+  dims = KEEP(rray_as_dims(dims, r_c_arg_dims));
 
   sexp* out = rray_strides_from_dims(dims);
 

@@ -30,3 +30,13 @@ dims are type checked
 Error: Lossy cast from <character> to <integer>.
 * Locations: 1
 
+
+dims_arg is validated
+=====================
+
+> rray_as_dims(1, 1)
+Error: `dims_arg` must be a character vector, not a double vector
+
+> rray_as_dims(1, c("x", "y"))
+Error: `dims_arg` must have length 1, not 2
+
