@@ -8,7 +8,7 @@ struct rray_stepper new_stepper(sexp* dims) {
   memset(p_loc_dims, 0, dimensionality * sizeof(int));
 
   sexp* strides = KEEP(rray_strides_from_dims(dims));
-  const double* p_strides = r_dbl_deref(strides);
+  const r_ssize* p_strides = rray_strides_const_deref(strides);
 
   const int* p_dims = r_int_deref(dims);
 
@@ -74,19 +74,15 @@ void stepper_sync(struct rray_stepper* p_stepper) {
     return;
   }
 
-  r_ssize loc = 0;
-
-  r_ssize dimensionality = p_stepper->dimensionality;
+  const r_ssize dimensionality = p_stepper->dimensionality;
   const int* p_loc_dims = p_stepper->p_loc_dims;
-  const double* p_strides = p_stepper->p_strides;
+  const r_ssize* p_strides = p_stepper->p_strides;
 
-  for (r_ssize i = 0; i < dimensionality; ++i) {
-    r_ssize stride = (r_ssize) p_strides[i];
-    int loc_dim = p_loc_dims[i];
+  p_stepper->loc = rray_array_loc_as_flat_loc(
+    p_loc_dims,
+    p_strides,
+    dimensionality
+  );
 
-    loc += loc_dim * stride;
-  }
-
-  p_stepper->loc = loc;
   p_stepper->outdated = false;
 }

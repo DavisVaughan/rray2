@@ -11,6 +11,7 @@
 #include "dimensionality.h"
 #include "dimensions.h"
 #include "elements.h"
+#include "location.h"
 #include "stepper.h"
 #include "strides.h"
 

@@ -120,14 +120,21 @@ sexp* export_rray_init_library() {
 // strides.c
 
 sexp* export_rray_strides(sexp* x) {
-  return rray_strides(x);
+  sexp* strides = KEEP(rray_strides(x));
+
+  sexp* out = rray_strides_as_double(strides);
+
+  FREE(1);
+  return out;
 }
 
 sexp* export_rray_strides_from_dims(sexp* dims) {
   dims = KEEP(rray_as_dims(dims, r_c_arg_dims));
 
-  sexp* out = rray_strides_from_dims(dims);
+  sexp* strides = KEEP(rray_strides_from_dims(dims));
 
-  FREE(1);
+  sexp* out = rray_strides_as_double(strides);
+
+  FREE(2);
   return out;
 }

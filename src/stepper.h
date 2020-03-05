@@ -18,7 +18,8 @@
  * @param p_broadcastable A bool pointer to the underlying data stored in
  *   `broadcastable`.
  *
- * @param strides The strides for the original dimensions.
+ * @param strides The strides for the original dimensions. These are stored as
+ *   a raw vector backed by a r_ssize array.
  * @param p_strides A pointer to `strides`.
  *
  * @param dimensionality The number of original dimensions.
@@ -37,7 +38,7 @@ struct rray_stepper {
   const bool* p_broadcastable;
 
   sexp* strides;
-  const double* p_strides;
+  const r_ssize* p_strides;
 
   r_ssize dimensionality;
   bool outdated;
