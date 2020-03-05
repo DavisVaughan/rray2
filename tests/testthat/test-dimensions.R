@@ -186,6 +186,21 @@ test_that("dims are split in the order specified by `axes`", {
 })
 
 # ------------------------------------------------------------------------------
+# rray_dims_select()
+
+test_that("can select dims", {
+  expect_identical(rray_dims_select(c(3, 5, 2), c(2, 3)), c(5L, 2L))
+})
+
+test_that("dims are selected in the order of `axes`", {
+  expect_identical(rray_dims_select(c(3, 5, 2), c(3, 1, 2)), c(2L, 3L, 5L))
+})
+
+test_that("can select no dims", {
+  expect_identical(rray_dims_select(c(3, 5, 2), integer()), integer())
+})
+
+# ------------------------------------------------------------------------------
 # rray_as_dims()
 
 test_that("dims are cast to integer", {

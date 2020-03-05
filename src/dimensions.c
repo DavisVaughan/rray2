@@ -201,6 +201,25 @@ sexp* rray_dims_split(sexp* dims, sexp* axes) {
 
 // -----------------------------------------------------------------------------
 
+sexp* rray_dims_select(sexp* dims, sexp* axes) {
+  const int* p_dims = r_int_deref(dims);
+  const int* p_axes = r_int_deref(axes);
+
+  r_ssize size = r_length(axes);
+
+  sexp* out = KEEP(r_new_int(size));
+  int* p_out = r_int_deref(out);
+
+  for (r_ssize i = 0; i < size; ++i) {
+    p_out[i] = p_dims[p_axes[i] - 1];
+  }
+
+  FREE(1);
+  return out;
+}
+
+// -----------------------------------------------------------------------------
+
 sexp* rray_as_dims(sexp* dims, const char* dims_arg) {
   dims = KEEP(vec_cast(dims, rray_shared_empty_int));
 
