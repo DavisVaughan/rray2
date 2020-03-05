@@ -1,0 +1,32 @@
+
+cannot have negative dims
+=========================
+
+> rray_as_dims(-1)
+Error: A negative `dims` value was found at location 1.
+
+> rray_as_dims(c(1, -1))
+Error: A negative `dims` value was found at location 2.
+
+
+cannot have missing dims
+========================
+
+> rray_as_dims(NA_integer_)
+Error: A missing `dims` value was found at location 1.
+
+
+dims cannot be length 0
+=======================
+
+> rray_as_dims(integer())
+Error: `dims` must have a length of at least 1, not 0.
+
+
+dims are type checked
+=====================
+
+> rray_as_dims("x")
+Error: Lossy cast from <character> to <integer>.
+* Locations: 1
+

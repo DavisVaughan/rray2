@@ -165,4 +165,51 @@ test_that("cannot reduce dimensionality", {
   expect_error(rray_dims_expand(1, 0), "from 1 to 0")
 })
 
+# ------------------------------------------------------------------------------
+# rray_as_dims()
 
+test_that("dims are cast to integer", {
+  expect_type(rray_as_dims(1), "integer")
+})
+
+test_that("cannot have negative dims", {
+  verify_errors({
+    expect_error(rray_as_dims(-1))
+    expect_error(rray_as_dims(c(1, -1)))
+  })
+})
+
+test_that("cannot have missing dims", {
+  verify_errors({
+    expect_error(rray_as_dims(NA_integer_))
+  })
+})
+
+test_that("dims cannot be length 0", {
+  verify_errors({
+    expect_error(rray_as_dims(integer()))
+  })
+})
+
+test_that("dims are type checked", {
+  verify_errors({
+    expect_error(rray_as_dims("x"), class = "vctrs_error_cast_lossy")
+  })
+})
+
+test_that("rray_as_dims() produces informative errors", {
+  verify_output(test_path("output/test-axes-rray-as-dims.txt"), {
+    "# cannot have negative dims"
+    rray_as_dims(-1)
+    rray_as_dims(c(1, -1))
+
+    "# cannot have missing dims"
+    rray_as_dims(NA_integer_)
+
+    "# dims cannot be length 0"
+    rray_as_dims(integer())
+
+    "# dims are type checked"
+    rray_as_dims("x")
+  })
+})

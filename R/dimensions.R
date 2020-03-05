@@ -71,3 +71,7 @@ rray_dims2 <- function(x, y) {
 rray_dims_expand <- function(dims, dimensionality) {
   .Call(export_rray_dims_expand, dims, dimensionality)
 }
+
+rray_as_dims <- function(dims) {
+  .Call(export_rray_as_dims, dims)
+}

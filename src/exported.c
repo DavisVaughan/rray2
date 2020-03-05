@@ -87,6 +87,10 @@ sexp* export_rray_dims_expand(sexp* dims, sexp* dimensionality) {
   return out;
 }
 
+sexp* export_rray_as_dims(sexp* dims) {
+  return rray_as_dims(dims);
+}
+
 // elements.c
 
 sexp* export_rray_elements(sexp* x) {

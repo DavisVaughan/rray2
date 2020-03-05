@@ -143,3 +143,34 @@ sexp* rray_dims_expand(sexp* dims, r_ssize dimensionality) {
   FREE(1);
   return out;
 }
+
+// -----------------------------------------------------------------------------
+
+sexp* rray_as_dims(sexp* dims) {
+  dims = KEEP(vec_cast(dims, rray_shared_empty_int));
+
+  r_ssize size = r_length(dims);
+
+  if (size == 0) {
+    r_abort("`dims` must have a length of at least 1, not 0.");
+  }
+
+  const int* p_dims = r_int_deref(dims);
+
+  for (r_ssize i = 0; i < size; ++i) {
+    const int dim = p_dims[i];
+
+    if (dim >= 0) {
+      continue;
+    }
+
+    if (dim == r_na_int) {
+      r_abort("A missing `dims` value was found at location %td.", i + 1);
+    } else {
+      r_abort("A negative `dims` value was found at location %td.", i + 1);
+    }
+  }
+
+  FREE(1);
+  return dims;
+}
