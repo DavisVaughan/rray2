@@ -111,6 +111,19 @@ sexp* export_rray_dims_select(sexp* dims, sexp* axes) {
   return out;
 }
 
+sexp* export_rray_dims_reduce(sexp* dims, sexp* axes) {
+  dims = KEEP(rray_as_dims(dims, r_c_arg_dims));
+
+  r_ssize dimensionality = r_length(dims);
+  axes = KEEP(rray_as_axes(axes, dimensionality));
+
+  sexp* out = rray_dims_reduce(dims, axes);
+
+  FREE(2);
+  return out;
+}
+
+
 sexp* export_rray_as_dims(sexp* dims, sexp* dims_arg) {
   const char* dims_arg_ = rray_as_arg(dims_arg, r_c_arg_dims_arg);
   return rray_as_dims(dims, dims_arg_);

@@ -201,6 +201,21 @@ test_that("can select no dims", {
 })
 
 # ------------------------------------------------------------------------------
+# rray_dims_reduce()
+
+test_that("can reduce dims", {
+  expect_identical(rray_dims_reduce(c(3, 5, 2), c(2, 3)), c(3L, 1L, 1L))
+})
+
+test_that("order of `axes` doesn't matter", {
+  expect_identical(rray_dims_reduce(c(3, 5, 2), c(3, 2)), c(3L, 1L, 1L))
+})
+
+test_that("can select no dims", {
+  expect_identical(rray_dims_reduce(c(3, 5, 2), integer()), c(3L, 5L, 2L))
+})
+
+# ------------------------------------------------------------------------------
 # rray_as_dims()
 
 test_that("dims are cast to integer", {

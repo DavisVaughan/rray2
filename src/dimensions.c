@@ -217,13 +217,39 @@ sexp* rray_dims_select(sexp* dims, sexp* axes) {
   const int* p_dims = r_int_deref(dims);
   const int* p_axes = r_int_deref(axes);
 
-  r_ssize size = r_length(axes);
+  const r_ssize size = r_length(axes);
 
   sexp* out = KEEP(r_new_int(size));
   int* p_out = r_int_deref(out);
 
   for (r_ssize i = 0; i < size; ++i) {
     p_out[i] = p_dims[p_axes[i] - 1];
+  }
+
+  FREE(1);
+  return out;
+}
+
+// -----------------------------------------------------------------------------
+
+sexp* rray_dims_reduce(sexp* dims, sexp* axes) {
+  const int* p_dims = r_int_deref(dims);
+  const int* p_axes = r_int_deref(axes);
+
+  const r_ssize dims_size = r_length(dims);
+  const r_ssize axes_size = r_length(axes);
+
+  sexp* out = KEEP(r_new_int(dims_size));
+  int* p_out = r_int_deref(out);
+
+  // Initialize with `dims`
+  for (r_ssize i = 0; i < dims_size; ++i) {
+    p_out[i] = p_dims[i];
+  }
+
+  // Reduce `axes` locations to 1
+  for (r_ssize i = 0; i < axes_size; ++i) {
+    p_out[p_axes[i] - 1] = 1;
   }
 
   FREE(1);

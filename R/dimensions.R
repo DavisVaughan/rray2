@@ -80,6 +80,10 @@ rray_dims_select <- function(dims, axes) {
   .Call(export_rray_dims_select, dims, axes)
 }
 
+rray_dims_reduce <- function(dims, axes) {
+  .Call(export_rray_dims_reduce, dims, axes)
+}
+
 rray_as_dims <- function(dims, dims_arg = "dims") {
   .Call(export_rray_as_dims, dims, dims_arg)
 }
