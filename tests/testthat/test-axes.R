@@ -33,7 +33,7 @@ test_that("cannot select axes past the dimensionality", {
 })
 
 test_that("rray_as_axes() produces informative errors", {
-  verify_output(test_path("output/test-axes.txt"), {
+  verify_output(test_path("output/test-axes-rray-as-axes.txt"), {
     "# cannot select negative axes"
     rray_as_axes(-1, 1)
     rray_as_axes(c(1, -1), 1)
