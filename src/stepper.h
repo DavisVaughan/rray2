@@ -40,7 +40,7 @@ struct rray_stepper {
   sexp* strides;
   const r_ssize* p_strides;
 
-  r_ssize dimensionality;
+  const r_ssize dimensionality;
   bool synced;
 };
 
