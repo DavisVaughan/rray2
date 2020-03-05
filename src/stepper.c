@@ -28,7 +28,7 @@ struct rray_stepper new_stepper(sexp* dims) {
     .strides = strides,
     .p_strides = p_strides,
     .dimensionality = dimensionality,
-    .outdated = false
+    .synced = true
   };
 
   FREE(3);

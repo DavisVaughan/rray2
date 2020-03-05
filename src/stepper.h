@@ -24,7 +24,7 @@
  *
  * @param dimensionality The number of original dimensions.
  *
- * @param outdated A signal for whether `stepper_loc()` needs to update the
+ * @param synced A signal for whether `stepper_loc()` needs to update the
  *   stored location or not. If we are broadcasting an axis, no updating needs
  *   to happen because we are repeatedly accessing the same value.
  */
@@ -41,7 +41,7 @@ struct rray_stepper {
   const r_ssize* p_strides;
 
   r_ssize dimensionality;
-  bool outdated;
+  bool synced;
 };
 
 
@@ -71,7 +71,7 @@ static inline void stepper_step(struct rray_stepper* p_stepper, r_ssize axis, r_
   }
 
   p_stepper->p_array_loc[axis] += n;
-  p_stepper->outdated = true;
+  p_stepper->synced = false;
 }
 
 static inline void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis) {
@@ -88,11 +88,11 @@ static inline void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis) {
   }
 
   p_stepper->p_array_loc[axis] = 0;
-  p_stepper->outdated = true;
+  p_stepper->synced = false;
 }
 
 static inline void stepper_sync(struct rray_stepper* p_stepper) {
-  if (!p_stepper->outdated) {
+  if (p_stepper->synced) {
     return;
   }
 
@@ -106,7 +106,7 @@ static inline void stepper_sync(struct rray_stepper* p_stepper) {
     dimensionality
   );
 
-  p_stepper->outdated = false;
+  p_stepper->synced = true;
 }
 
 // -----------------------------------------------------------------------------
