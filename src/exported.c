@@ -15,6 +15,16 @@ sexp* export_rray_as_axes(sexp* axes, sexp* dimensionality) {
   return rray_as_axes(axes, dimensionality_);
 }
 
+sexp* export_rray_axes_complement(sexp* axes, sexp* dimensionality) {
+  r_ssize dimensionality_ = rray_as_dimensionality(dimensionality);
+  axes = KEEP(rray_as_axes(axes, dimensionality_));
+
+  sexp* out = rray_axes_complement(axes, dimensionality_);
+
+  FREE(1);
+  return out;
+}
+
 // broadcast.c
 
 sexp* export_rray_broadcast(sexp* x, sexp* dims) {

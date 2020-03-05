@@ -1,3 +1,6 @@
+# ------------------------------------------------------------------------------
+# rray_as_axes()
+
 test_that("axes are cast to integer", {
   expect_type(rray_as_axes(c(1, 2), 2), "integer")
 })
@@ -53,4 +56,25 @@ test_that("rray_as_axes() produces informative errors", {
     "# cannot select axes past the dimensionality"
     rray_as_axes(3, 2)
   })
+})
+
+# ------------------------------------------------------------------------------
+# rray_axes_complement()
+
+test_that("can get the complement of axes", {
+  expect_identical(rray_axes_complement(c(1, 2), 3), 3L)
+  expect_identical(rray_axes_complement(c(1, 3), 3), 2L)
+  expect_identical(rray_axes_complement(c(1, 3, 5), 5), c(2L, 4L))
+})
+
+test_that("the order of the complement is always sequential", {
+  expect_identical(rray_axes_complement(c(5, 3, 1), 5), c(2L, 4L))
+})
+
+test_that("the complement can be the empty set", {
+  expect_identical(rray_axes_complement(1:5, 5), integer())
+})
+
+test_that("the compelement can come from the empty set", {
+  expect_identical(rray_axes_complement(integer(), 5), 1:5)
 })

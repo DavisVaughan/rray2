@@ -9,6 +9,7 @@ sexp* export_rray_add(sexp* x, sexp* y);
 
 // axes.c
 sexp* export_rray_as_axes(sexp* axes, sexp* dimensionality);
+sexp* export_rray_axes_complement(sexp* axes, sexp* dimensionality);
 
 // broadcast.c
 sexp* export_rray_broadcast(sexp* x, sexp* dims);

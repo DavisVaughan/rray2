@@ -9,6 +9,7 @@ static const r_callable r_callables[] = {
 
   // axes.c
   {"export_rray_as_axes",                  (r_fn_ptr) &export_rray_as_axes, 2},
+  {"export_rray_axes_complement",          (r_fn_ptr) &export_rray_axes_complement, 2},
 
   // broadcast.c
   {"export_rray_broadcast",                (r_fn_ptr) &export_rray_broadcast, 2},
