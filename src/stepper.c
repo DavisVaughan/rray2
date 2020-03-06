@@ -1,7 +1,7 @@
 #include "rray.h"
 
 struct rray_stepper new_stepper(sexp* dims) {
-  r_ssize dimensionality = r_length(dims);
+  const r_ssize dimensionality = r_length(dims);
 
   sexp* array_loc = KEEP(r_new_int(dimensionality));
   int* p_array_loc = r_int_deref(array_loc);
