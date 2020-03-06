@@ -15,6 +15,8 @@ sexp* rray_broadcast(sexp* x, sexp* dims) {
   const r_ssize out_elements = rray_elements_from_dims(dims);
   const r_ssize out_dimensionality = r_length(dims);
 
+  x_dims = KEEP_N(rray_dims_expand(x_dims, out_dimensionality), n_protect);
+
   sexp* out = KEEP_N(r_new_int(out_elements), n_protect);
   int* p_out = r_int_deref(out);
 
