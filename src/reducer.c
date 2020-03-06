@@ -35,27 +35,28 @@ sexp* rray_sum(sexp* x, sexp* axes) {
   sexp* out = KEEP(r_new_dbl(non_axes_dims_elements));
   double* p_out = r_dbl_deref(out);
 
+  r_ssize x_loc = 0;
+
   for (r_ssize i = 0; i < non_axes_dims_elements; ++i) {
     double elt_out = 0;
 
     for (r_ssize j = 0; j < axes_dims_elements; ++j) {
-      r_ssize x_loc = rray_array_loc_as_flat_loc(
-        p_x_array_loc,
-        p_x_strides,
-        x_dimensionality
-      );
-
       elt_out += (double) p_x[x_loc];
 
       for (r_ssize k = 0; k < axes_dimensionality; ++k) {
         const int axis = p_axes[k] - 1;
-        ++p_x_array_loc[axis];
+        const r_ssize x_axis_stride = p_x_strides[axis];
+        const int x_axis_dim = p_x_dims[axis];
 
-        if (p_x_array_loc[axis] < p_x_dims[axis]) {
+        ++p_x_array_loc[axis];
+        x_loc += x_axis_stride;
+
+        if (p_x_array_loc[axis] < x_axis_dim) {
           break;
         }
 
         p_x_array_loc[axis] = 0;
+        x_loc -= x_axis_stride * x_axis_dim;
       }
     }
 
@@ -63,13 +64,18 @@ sexp* rray_sum(sexp* x, sexp* axes) {
 
     for (r_ssize k = 0; k < non_axes_dimensionality; ++k) {
       const int axis = p_non_axes[k] - 1;
-      ++p_x_array_loc[axis];
+      const r_ssize x_axis_stride = p_x_strides[axis];
+      const int x_axis_dim = p_x_dims[axis];
 
-      if (p_x_array_loc[axis] < p_x_dims[axis]) {
+      ++p_x_array_loc[axis];
+      x_loc += x_axis_stride;
+
+      if (p_x_array_loc[axis] < x_axis_dim) {
         break;
       }
 
       p_x_array_loc[axis] = 0;
+      x_loc -= x_axis_stride * x_axis_dim;
     }
   }
 
