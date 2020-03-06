@@ -65,10 +65,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          library(remotes)
-          deps <- readRDS("depends.Rds")
-          deps[["installed"]] <- vapply(deps[["package"]], remotes:::local_sha, character(1))
-          update(deps)
+          remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
@@ -85,5 +82,5 @@ jobs:
 
       - name: Test coverage
         if: matrix.config.os == 'macOS-latest' && matrix.config.r == '3.6'
-        run: covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")
+        run: covr::codecov()
         shell: Rscript {0}
