@@ -1,10 +1,8 @@
-#include "zzz-internal-r.h"
-#include "zzz-internal-library.h"
-
-#include "zzz-internal-rlang.h"
+#include "rray.h"
+#include "library.h"
 
 sexp* (*rlang_env_dots_list)(sexp*) = NULL;
 
-void rray_init_internal_rlang() {
+void rray_init_rlang() {
   rlang_env_dots_list = (sexp* (*)(sexp*)) R_GetCCallable("rlang", "rlang_env_dots_list");
 }

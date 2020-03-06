@@ -13,6 +13,7 @@
 #include "elements.h"
 #include "location.h"
 #include "reducer.h"
+#include "rlang.h"
 #include "stepper.h"
 #include "strides.h"
 #include "vctrs.h"

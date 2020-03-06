@@ -4,6 +4,9 @@
 // library.c
 void rray_init_library();
 
+// rlang.c
+void rray_init_rlang();
+
 // vctrs.c
 void rray_init_vctrs();
 

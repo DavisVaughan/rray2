@@ -8,7 +8,6 @@
 #include "zzz-internal-functional.h"
 #include "zzz-internal-node.h"
 #include "zzz-internal-r.h"
-#include "zzz-internal-rlang.h"
 #include "zzz-internal-sexp.h"
 #include "zzz-internal-sym.h"
 #include "zzz-internal-type.h"
