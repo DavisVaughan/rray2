@@ -6,27 +6,19 @@
 
 /*
  * @param loc The flat location that matches the array location
- *   currently in `array_loc`. If `outdated` is `true`, this `loc` needs
- *   to be updated with a call to `stepper_sync()`.
+ *   currently in `array_loc`. This is updated alongside `array_loc`
+ *   through `stepper_step()` and `stepper_reset()`.
  *
  * @param array_loc The current array location. This is updated through
  *   `p_array_loc` when `stepper_step()` or `stepper_reset()` is called.
  * @param p_array_loc The pointer to `array_loc`.
  *
- * @param broadcastable A raw vector storing an array of booleans. These return
- *   true of `dim[axis]` is 1, and false otherwise.
- * @param p_broadcastable A bool pointer to the underlying data stored in
- *   `broadcastable`.
+ * @param dims The original dimensions.
+ * @param p_dims A pointer to `dims`.
  *
  * @param strides The strides for the original dimensions. These are stored as
  *   a raw vector backed by a r_ssize array.
  * @param p_strides A pointer to `strides`.
- *
- * @param dimensionality The number of original dimensions.
- *
- * @param synced A signal for whether `stepper_loc()` needs to update the
- *   stored location or not. If we are broadcasting an axis, no updating needs
- *   to happen because we are repeatedly accessing the same value.
  */
 struct rray_stepper {
   r_ssize loc;
@@ -34,20 +26,17 @@ struct rray_stepper {
   sexp* array_loc;
   int* p_array_loc;
 
-  sexp* broadcastable;
-  const bool* p_broadcastable;
+  sexp* dims;
+  const int* p_dims;
 
   sexp* strides;
   const r_ssize* p_strides;
-
-  const r_ssize dimensionality;
-  bool synced;
 };
 
 
 #define KEEP_RRAY_STEPPER(stepper, n) do { \
   KEEP((stepper)->array_loc);              \
-  KEEP((stepper)->broadcastable);          \
+  KEEP((stepper)->dims);                   \
   KEEP((stepper)->strides);                \
   n += 3;                                  \
 } while (0)
@@ -58,55 +47,25 @@ struct rray_stepper new_stepper(sexp* dims);
 // -----------------------------------------------------------------------------
 
 static inline void stepper_step(struct rray_stepper* p_stepper, r_ssize axis, r_ssize n) {
-  const r_ssize dimensionality = p_stepper->dimensionality;
+  const int dim = p_stepper->p_dims[axis];
 
-  if (axis >= dimensionality) {
+  if (dim == 1) {
     return;
   }
 
-  const bool* p_broadcastable = p_stepper->p_broadcastable;
-
-  if (p_broadcastable[axis]) {
-    return;
-  }
+  const r_ssize stride = p_stepper->p_strides[axis];
 
   p_stepper->p_array_loc[axis] += n;
-  p_stepper->synced = false;
+  p_stepper->loc += n * stride;
+}
+
+static inline void stepper_step_back(struct rray_stepper* p_stepper, r_ssize axis, r_ssize n) {
+  stepper_step(p_stepper, axis, -n);
 }
 
 static inline void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis) {
-  const r_ssize dimensionality = p_stepper->dimensionality;
-
-  if (axis >= dimensionality) {
-    return;
-  }
-
-  const bool* p_broadcastable = p_stepper->p_broadcastable;
-
-  if (p_broadcastable[axis]) {
-    return;
-  }
-
-  p_stepper->p_array_loc[axis] = 0;
-  p_stepper->synced = false;
-}
-
-static inline void stepper_sync(struct rray_stepper* p_stepper) {
-  if (p_stepper->synced) {
-    return;
-  }
-
-  const r_ssize dimensionality = p_stepper->dimensionality;
-  const int* p_array_loc = p_stepper->p_array_loc;
-  const r_ssize* p_strides = p_stepper->p_strides;
-
-  p_stepper->loc = rray_array_loc_as_flat_loc(
-    p_array_loc,
-    p_strides,
-    dimensionality
-  );
-
-  p_stepper->synced = true;
+  const int dim = p_stepper->p_dims[axis];
+  stepper_step_back(p_stepper, axis, dim);
 }
 
 // -----------------------------------------------------------------------------
@@ -134,7 +93,6 @@ static inline void stepper_sync(struct rray_stepper* p_stepper) {
 
 
 #define STEPPER_UNARY_SYNC(X_LOC) do { \
-  stepper_sync(p_x_stepper);           \
   X_LOC = x_stepper.loc;               \
 } while (0)
 
@@ -171,10 +129,7 @@ static inline void stepper_sync(struct rray_stepper* p_stepper) {
 
 
 #define STEPPER_BINARY_SYNC(X_LOC, Y_LOC) do { \
-  stepper_sync(p_x_stepper);                   \
   X_LOC = x_stepper.loc;                       \
-                                               \
-  stepper_sync(p_y_stepper);                   \
   Y_LOC = y_stepper.loc;                       \
 } while (0)
 

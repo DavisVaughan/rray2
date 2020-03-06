@@ -15,6 +15,9 @@ sexp* rray_add(sexp* x, sexp* y) {
   const r_ssize out_elements = rray_elements_from_dims(out_dims);
   const r_ssize out_dimensionality = r_length(out_dims);
 
+  x_dims = KEEP_N(rray_dims_expand(x_dims, out_dimensionality), n_protect);
+  y_dims = KEEP_N(rray_dims_expand(y_dims, out_dimensionality), n_protect);
+
   sexp* out = KEEP_N(r_new_int(out_elements), n_protect);
   int* p_out = r_int_deref(out);
 
