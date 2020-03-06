@@ -19,8 +19,6 @@
  * @param strides The strides for the original dimensions. These are stored as
  *   a raw vector backed by a r_ssize array.
  * @param p_strides A pointer to `strides`.
- *
- * @param dimensionality The number of original dimensions.
  */
 struct rray_stepper {
   r_ssize loc;
@@ -33,8 +31,6 @@ struct rray_stepper {
 
   sexp* strides;
   const r_ssize* p_strides;
-
-  const r_ssize dimensionality;
 };
 
 
@@ -50,13 +46,7 @@ struct rray_stepper new_stepper(sexp* dims);
 
 // -----------------------------------------------------------------------------
 
-static inline void stepper_step(struct rray_stepper* p_stepper, r_ssize axis) {
-  const r_ssize dimensionality = p_stepper->dimensionality;
-
-  if (axis >= dimensionality) {
-    return;
-  }
-
+static inline void stepper_step(struct rray_stepper* p_stepper, r_ssize axis, r_ssize n) {
   const int dim = p_stepper->p_dims[axis];
 
   if (dim == 1) {
@@ -65,27 +55,17 @@ static inline void stepper_step(struct rray_stepper* p_stepper, r_ssize axis) {
 
   const r_ssize stride = p_stepper->p_strides[axis];
 
-  ++p_stepper->p_array_loc[axis];
-  p_stepper->loc += stride;
+  p_stepper->p_array_loc[axis] += n;
+  p_stepper->loc += n * stride;
+}
+
+static inline void stepper_step_back(struct rray_stepper* p_stepper, r_ssize axis, r_ssize n) {
+  stepper_step(p_stepper, axis, -n);
 }
 
 static inline void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis) {
-  const r_ssize dimensionality = p_stepper->dimensionality;
-
-  if (axis >= dimensionality) {
-    return;
-  }
-
   const int dim = p_stepper->p_dims[axis];
-
-  if (dim == 1) {
-    return;
-  }
-
-  const r_ssize stride = p_stepper->p_strides[axis];
-
-  p_stepper->p_array_loc[axis] = 0;
-  p_stepper->loc -= dim * stride;
+  stepper_step_back(p_stepper, axis, dim);
 }
 
 // -----------------------------------------------------------------------------
@@ -120,7 +100,7 @@ static inline void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis) {
 #define STEPPER_UNARY_NEXT(OUT_DIMENSIONALITY, P_OUT_DIMS) do { \
   for (r_ssize axis = 0; axis < OUT_DIMENSIONALITY; ++axis) {   \
     ++p_out_array_loc[axis];                                    \
-    stepper_step(p_x_stepper, axis);                            \
+    stepper_step(p_x_stepper, axis, 1);                         \
                                                                 \
     /* Continue along axis */                                   \
     if (p_out_array_loc[axis] < P_OUT_DIMS[axis]) {             \
@@ -157,8 +137,8 @@ static inline void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis) {
 #define STEPPER_BINARY_NEXT(OUT_DIMENSIONALITY, P_OUT_DIMS) do { \
   for (r_ssize axis = 0; axis < OUT_DIMENSIONALITY; ++axis) {    \
     ++p_out_array_loc[axis];                                     \
-    stepper_step(p_x_stepper, axis);                             \
-    stepper_step(p_y_stepper, axis);                             \
+    stepper_step(p_x_stepper, axis, 1);                          \
+    stepper_step(p_y_stepper, axis, 1);                          \
                                                                  \
     /* Continue along axis */                                    \
     if (p_out_array_loc[axis] < P_OUT_DIMS[axis]) {              \

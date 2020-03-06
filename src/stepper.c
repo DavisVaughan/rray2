@@ -19,8 +19,7 @@ struct rray_stepper new_stepper(sexp* dims) {
     .dims = dims,
     .p_dims = p_dims,
     .strides = strides,
-    .p_strides = p_strides,
-    .dimensionality = dimensionality
+    .p_strides = p_strides
   };
 
   FREE(2);
