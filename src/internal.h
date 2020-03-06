@@ -13,7 +13,6 @@
 #include "zzz-internal-sym.h"
 #include "zzz-internal-type.h"
 #include "zzz-internal-util.h"
-#include "zzz-internal-vctrs.h"
 #include "zzz-internal-vec-chr.h"
 #include "zzz-internal-vec-dbl.h"
 #include "zzz-internal-vec-int.h"

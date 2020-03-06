@@ -15,6 +15,7 @@
 #include "reducer.h"
 #include "stepper.h"
 #include "strides.h"
+#include "vctrs.h"
 
 
 #endif
