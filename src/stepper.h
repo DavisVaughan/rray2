@@ -13,10 +13,8 @@
  *   `p_array_loc` when `stepper_step()` or `stepper_reset()` is called.
  * @param p_array_loc The pointer to `array_loc`.
  *
- * @param broadcastable A raw vector storing an array of booleans. These return
- *   true of `dim[axis]` is 1, and false otherwise.
- * @param p_broadcastable A bool pointer to the underlying data stored in
- *   `broadcastable`.
+ * @param dims The original dimensions.
+ * @param p_dims A pointer to `dims`.
  *
  * @param strides The strides for the original dimensions. These are stored as
  *   a raw vector backed by a r_ssize array.
@@ -34,8 +32,8 @@ struct rray_stepper {
   sexp* array_loc;
   int* p_array_loc;
 
-  sexp* broadcastable;
-  const bool* p_broadcastable;
+  sexp* dims;
+  const int* p_dims;
 
   sexp* strides;
   const r_ssize* p_strides;
@@ -47,7 +45,7 @@ struct rray_stepper {
 
 #define KEEP_RRAY_STEPPER(stepper, n) do { \
   KEEP((stepper)->array_loc);              \
-  KEEP((stepper)->broadcastable);          \
+  KEEP((stepper)->dims);                   \
   KEEP((stepper)->strides);                \
   n += 3;                                  \
 } while (0)
@@ -64,9 +62,9 @@ static inline void stepper_step(struct rray_stepper* p_stepper, r_ssize axis, r_
     return;
   }
 
-  const bool* p_broadcastable = p_stepper->p_broadcastable;
+  const int* p_dims = p_stepper->p_dims;
 
-  if (p_broadcastable[axis]) {
+  if (p_dims[axis] == 1) {
     return;
   }
 
@@ -81,9 +79,9 @@ static inline void stepper_reset(struct rray_stepper* p_stepper, r_ssize axis) {
     return;
   }
 
-  const bool* p_broadcastable = p_stepper->p_broadcastable;
+  const int* p_dims = p_stepper->p_dims;
 
-  if (p_broadcastable[axis]) {
+  if (p_dims[axis] == 1) {
     return;
   }
 
