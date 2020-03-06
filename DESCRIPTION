@@ -18,14 +18,14 @@ Depends:
     R (>= 3.2)
 Imports: 
     rlang,
-    vctrs (>= 0.2.99.9007)
+    vctrs (>= 0.2.99.9010)
 Suggests: 
     covr,
     testthat (>= 2.1.0)
 LinkingTo:
-    vctrs (>= 0.2.99.9007)
+    vctrs (>= 0.2.99.9010)
 Remotes:
-    r-lib/vctrs#874
+    r-lib/vctrs
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
