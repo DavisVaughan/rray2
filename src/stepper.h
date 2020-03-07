@@ -5,13 +5,8 @@
 #include "internal.h"
 
 /*
- * @param loc The flat location that matches the array location
- *   currently in `array_loc`. This is updated alongside `array_loc`
+ * @param loc The current flat location along the array. This is updated
  *   through `stepper_step()` and `stepper_reset()`.
- *
- * @param array_loc The current array location. This is updated through
- *   `p_array_loc` when `stepper_step()` or `stepper_reset()` is called.
- * @param p_array_loc The pointer to `array_loc`.
  *
  * @param dims The original dimensions.
  * @param p_dims A pointer to `dims`.
@@ -23,9 +18,6 @@
 struct rray_stepper {
   r_ssize loc;
 
-  sexp* array_loc;
-  int* p_array_loc;
-
   sexp* dims;
   const int* p_dims;
 
@@ -35,10 +27,9 @@ struct rray_stepper {
 
 
 #define KEEP_RRAY_STEPPER(stepper, n) do { \
-  KEEP((stepper)->array_loc);              \
   KEEP((stepper)->dims);                   \
   KEEP((stepper)->strides);                \
-  n += 3;                                  \
+  n += 2;                                  \
 } while (0)
 
 
@@ -55,7 +46,6 @@ static inline void stepper_step(struct rray_stepper* p_stepper, r_ssize axis, r_
 
   const r_ssize stride = p_stepper->p_strides[axis];
 
-  p_stepper->p_array_loc[axis] += n;
   p_stepper->loc += n * stride;
 }
 
