@@ -1,3 +1,5 @@
 {"file":"bench-arithmetic.R","name":"rray_add(x_1x5000, x_1x5000)","time":"2020-03-07T23:05:39Z","os":"macOS","mean":0.00003,"sd":0.00011,"p0":0.00002,"p25":0.00003,"p50":0.00003,"p75":0.00003,"p100":0.00718,"n_itr":10000,"n_gc":3,"total_time":0.31196,"mem_alloc":22464}
 
 {"file":"bench-arithmetic.R","name":"rray_add(x_5000x1, x_5000x1)","time":"2020-03-07T23:05:39Z","os":"macOS","mean":0.00002,"sd":0.0001,"p0":0.00001,"p25":0.00002,"p50":0.00002,"p75":0.00002,"p100":0.0078,"n_itr":10000,"n_gc":3,"total_time":0.20884,"mem_alloc":20048}
+
+{"file":"bench-arithmetic.R","name":"rray_add(x_1x500, x_500x1)","time":"2020-03-07T23:05:41Z","os":"macOS","mean":0.00086,"sd":0.00084,"p0":0.00046,"p25":0.00071,"p50":0.00085,"p75":0.00087,"p100":0.03053,"n_itr":2000,"n_gc":34,"total_time":1.7196,"mem_alloc":1000048}
