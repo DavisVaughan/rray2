@@ -37,7 +37,7 @@ jobs:
       - name: Show benchmarks
         run: |
           options(tibble.width = Inf)
-          print(bench::cb_read()$benchmarks[[7]], n = Inf)
+          print(bench::cb_read()$benchmarks[[1]], n = Inf)
         shell: Rscript {0}
 
       - name: Push benchmarks
