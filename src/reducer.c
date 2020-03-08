@@ -8,7 +8,7 @@ sexp* rray_sum(sexp* x, sexp* axes) {
 
   const r_ssize x_dimensionality = r_length(x_dims);
 
-  sexp* x_strides = KEEP(rray_strides_from_dims(x_dims));
+  sexp* x_strides = KEEP(rray_strides_from_dims(x_dims, false));
   const r_ssize* p_x_strides = rray_strides_const_deref(x_strides);
 
   sexp* x_array_loc = KEEP(r_new_int(x_dimensionality));

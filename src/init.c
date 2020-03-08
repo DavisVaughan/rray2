@@ -36,8 +36,8 @@ static const r_callable r_callables[] = {
   {"export_rray_init_library",             (r_fn_ptr) &export_rray_init_library, 0},
 
   // strides.c
-  {"export_rray_strides",                  (r_fn_ptr) &export_rray_strides, 1},
-  {"export_rray_strides_from_dims",        (r_fn_ptr) &export_rray_strides_from_dims, 1},
+  {"export_rray_strides",                  (r_fn_ptr) &export_rray_strides, 2},
+  {"export_rray_strides_from_dims",        (r_fn_ptr) &export_rray_strides_from_dims, 2},
 
   // reducer.c
   {"export_rray_sum",                      (r_fn_ptr) &export_rray_sum, 2},

@@ -3,7 +3,7 @@
 struct rray_stepper new_stepper(sexp* dims) {
   const r_ssize dimensionality = r_length(dims);
 
-  sexp* strides = KEEP(rray_strides_from_dims(dims));
+  sexp* strides = KEEP(rray_strides_from_dims(dims, false));
   const r_ssize* p_strides = rray_strides_const_deref(strides);
 
   const int* p_dims = r_int_deref(dims);

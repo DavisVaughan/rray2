@@ -166,8 +166,10 @@ sexp* export_rray_sum(sexp* x, sexp* axes) {
 
 // strides.c
 
-sexp* export_rray_strides(sexp* x) {
-  sexp* strides = KEEP(rray_strides(x));
+sexp* export_rray_strides(sexp* x, sexp* broadcastable) {
+  bool broadcastable_ = r_as_bool(broadcastable, r_c_arg_broadcastable);
+
+  sexp* strides = KEEP(rray_strides(x, broadcastable_));
 
   sexp* out = rray_strides_as_double(strides);
 
@@ -175,10 +177,11 @@ sexp* export_rray_strides(sexp* x) {
   return out;
 }
 
-sexp* export_rray_strides_from_dims(sexp* dims) {
+sexp* export_rray_strides_from_dims(sexp* dims, sexp* broadcastable) {
   dims = KEEP(rray_as_dims(dims, r_c_arg_dims));
+  bool broadcastable_ = r_as_bool(broadcastable, r_c_arg_broadcastable);
 
-  sexp* strides = KEEP(rray_strides_from_dims(dims));
+  sexp* strides = KEEP(rray_strides_from_dims(dims, broadcastable_));
 
   sexp* out = rray_strides_as_double(strides);
 

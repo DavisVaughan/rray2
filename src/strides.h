@@ -20,8 +20,8 @@ static inline const r_ssize* rray_strides_const_deref(sexp* x) {
   return (const r_ssize*) r_raw_deref(x);
 }
 
-sexp* rray_strides(sexp* x);
-sexp* rray_strides_from_dims(sexp* dims);
+sexp* rray_strides(sexp* x, const bool broadcastable);
+sexp* rray_strides_from_dims(sexp* dims, const bool broadcastable);
 sexp* rray_strides_as_double(sexp* strides);
 
 

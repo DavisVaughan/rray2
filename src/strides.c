@@ -1,9 +1,9 @@
 #include "rray.h"
 
-sexp* rray_strides(sexp* x) {
+sexp* rray_strides(sexp* x, const bool broadcastable) {
   sexp* dims = KEEP(rray_dims(x));
 
-  sexp* out = rray_strides_from_dims(dims);
+  sexp* out = rray_strides_from_dims(dims, broadcastable);
 
   FREE(1);
   return out;
@@ -12,9 +12,9 @@ sexp* rray_strides(sexp* x) {
 // It is possible that the dims could be integers, but the strides could
 // overflow into long vector range, so we always return a "strides" vector.
 // This is a raw vector backed by an r_ssize array.
-sexp* rray_strides_from_dims(sexp* dims) {
-  r_ssize dimensionality = r_length(dims);
-  int* p_dims = r_int_deref(dims);
+sexp* rray_strides_from_dims(sexp* dims, const bool broadcastable) {
+  const r_ssize dimensionality = r_length(dims);
+  const int* p_dims = r_int_deref(dims);
 
   sexp* out = KEEP(rray_new_strides(dimensionality));
   r_ssize* p_out = rray_strides_deref(out);
@@ -22,8 +22,15 @@ sexp* rray_strides_from_dims(sexp* dims) {
   r_ssize stride = 1;
 
   for (r_ssize i = 0; i < dimensionality; ++i) {
+    const int dim = p_dims[i];
+
+    if (broadcastable && dim == 1) {
+      p_out[i] = 0;
+      continue;
+    }
+
     p_out[i] = stride;
-    stride *= (r_ssize) p_dims[i];
+    stride *= (r_ssize) dim;
   }
 
   FREE(1);

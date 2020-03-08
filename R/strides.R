@@ -23,6 +23,12 @@
 #'
 #' @param x A vector
 #'
+#' @param broadcastable A single logical. Should broadcastable strides be
+#'   computed? The only difference between this and non-broadcastable strides
+#'   is that a `0` is returned as the stride value for any axis with a dimension
+#'   size of `1`. Broadcastable strides generate the same flat location when
+#'   combined with array locations, but greatly simplify internal calculations.
+#'
 #' @return A double vector with size equal to the dimensionality of `x` holding
 #'   the strides.
 #'
@@ -31,6 +37,7 @@
 #' rray_strides(1:5)
 #' rray_strides(array(1, dim = c(2, 2, 2)))
 #'
+#' # ---------------------------------------------------------------------------
 #'
 #' x <- array(1:18, dim = c(3, 2, 3))
 #' x_flat <- as.vector(x)
@@ -52,10 +59,49 @@
 #'         axis3 * strides[[3]]
 #'
 #' x_flat[locs + 1]
-rray_strides <- function(x) {
-  .Call(export_rray_strides, x)
+#'
+#' # ---------------------------------------------------------------------------
+#'
+#' # Non-broadcastable strides produce the same location
+#' # values as broadcastable strides
+#'
+#' x <- array(1:6, dim = c(2, 1, 3))
+#' x_flat <- as.vector(x)
+#'
+#' strides <- rray_strides(x)
+#' strides
+#'
+#' strides_broadcastable <- rray_strides(x, broadcastable = TRUE)
+#' strides_broadcastable
+#'
+#' # `axis2` can only ever be `0`, because
+#' # it is a 0-based index and there is only 1 column
+#' # in `x`. So the multiplication by the `0` stride value
+#' # later on has no effect.
+#' axis1 <- c(0, 1)
+#' axis2 <- c(0, 0)
+#' axis3 <- c(1, 1)
+#'
+#' locs1 <- axis1 * strides[[1]] +
+#'          axis2 * strides[[2]] +
+#'          axis3 * strides[[3]]
+#'
+#' locs2 <- axis1 * strides_broadcastable[[1]] +
+#'          axis2 * strides_broadcastable[[2]] +
+#'          axis3 * strides_broadcastable[[3]]
+#'
+#' # The array location
+#' x[1:2, 1, 2]
+#'
+#' # The flat location with regular strides
+#' x_flat[locs1 + 1]
+#'
+#' # The flat location with broadcastable strides
+#' x_flat[locs2 + 1]
+rray_strides <- function(x, broadcastable = FALSE) {
+  .Call(export_rray_strides, x, broadcastable)
 }
 
-rray_strides_from_dims <- function(dims) {
-  .Call(export_rray_strides_from_dims, dims)
+rray_strides_from_dims <- function(dims, broadcastable = FALSE) {
+  .Call(export_rray_strides_from_dims, dims, broadcastable)
 }

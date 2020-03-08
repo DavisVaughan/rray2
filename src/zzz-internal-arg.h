@@ -11,4 +11,6 @@
 
 #define r_c_arg_dims_arg "dims_arg"
 
+#define r_c_arg_broadcastable "broadcastable"
+
 #endif
