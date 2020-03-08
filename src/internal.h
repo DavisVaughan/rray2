@@ -15,6 +15,7 @@
 #include "zzz-internal-vec-chr.h"
 #include "zzz-internal-vec-dbl.h"
 #include "zzz-internal-vec-int.h"
+#include "zzz-internal-vec-lgl.h"
 #include "zzz-internal-vec-list.h"
 #include "zzz-internal-vec-raw.h"
 #include "zzz-internal-vec.h"
